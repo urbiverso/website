@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="pt-BR">
+<!-- Rascunho: textos em revisão. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Urbiverso</title>
+<meta name="description" content="Ajudamos empresas a migrar para a economia pós-singularidade.">
+<link rel="icon" href="assets/vortice.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --espaco:#03030A; --nebulosa:#1A1A55; --texto:#EEEDF2; --apagado:#8A89A0; --linha:rgba(255,255,255,.09);
+  --azul:#2AA9E0; --verde:#13A98D; --laranja:#F7A111; --magenta:#9A2B79;
+  --sans:"Archivo",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--espaco)}
+body{margin:0;background:var(--espaco);color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--laranja);outline-offset:3px}
+#ceu{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.nebulosa{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 45% at 75% 20%,rgba(26,26,85,.55),transparent 70%),radial-gradient(50% 40% at 15% 85%,rgba(154,43,121,.12),transparent 70%)}
+main,header,footer{position:relative;z-index:1}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--apagado)}
+.env{max-width:1120px;margin:0 auto;padding-inline:20px}
+
+.topo{position:fixed;inset:0 0 auto 0;z-index:5;padding-top:env(safe-area-inset-top,0px);
+  background:linear-gradient(var(--espaco) 20%,transparent)}
+.topo .env{display:flex;justify-content:space-between;align-items:center;height:60px}
+.topo .marca{font-weight:600;font-stretch:112%;font-size:18px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.topo .marca svg{width:22px;height:22px}
+.topo nav{display:flex;gap:18px;align-items:center}
+@media (max-width:640px){.topo .tag{display:none}}
+
+/* Abertura */
+.abertura{min-height:100svh;display:grid;align-content:center;justify-items:center;text-align:center;gap:28px;padding:96px 20px 64px}
+.vortice{width:min(58vmin,420px);aspect-ratio:1;will-change:transform}
+.vortice svg{width:100%;height:100%;display:block}
+.abertura h1{margin:0;max-width:18ch;font-weight:700;font-stretch:78%;font-size:clamp(38px,6vw,80px);line-height:.98;letter-spacing:-.01em;text-wrap:balance}
+.abertura p{margin:0;max-width:44ch;color:var(--apagado);font-size:clamp(17px,1.6vw,20px)}
+
+/* Capítulos */
+.capitulo{padding-block:18vh 12vh;border-top:1px solid var(--linha)}
+.rotulo{display:flex;gap:14px;align-items:center;margin-bottom:28px}
+.rotulo .n{color:var(--laranja)}
+.capitulo h2{margin:0 0 22px;max-width:20ch;font-weight:700;font-stretch:80%;font-size:clamp(34px,5vw,64px);line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
+.capitulo .corpo{max-width:58ch;color:var(--apagado);font-size:18px}
+.capitulo .corpo p{margin:0 0 16px}
+.capitulo .corpo strong{color:var(--texto);font-weight:500}
+
+/* 1 · texto que acende */
+.acende{margin:0;max-width:24ch;font-size:clamp(28px,4.2vw,54px);line-height:1.14;font-weight:500;font-stretch:90%;letter-spacing:-.01em;text-wrap:balance}
+.acende .p{opacity:.18;transition:opacity .35s linear}
+.acende .p.on{opacity:1}
+
+/* 2 · a fila de etapas */
+.fila{display:flex;gap:8px;align-items:center;margin:8px 0 34px;flex-wrap:wrap}
+.etapa{width:clamp(18px,4vw,34px);height:clamp(18px,4vw,34px);border-radius:50%;border:1px solid var(--linha);background:transparent;transition:background .25s,border-color .25s,box-shadow .25s}
+.etapa.ia{background:var(--azul);border-color:var(--azul)}
+.etapa.humana{border-color:var(--laranja)}
+.etapa.humana.on{background:var(--laranja);animation:espera 2.4s ease-in-out infinite}
+@keyframes espera{50%{opacity:.35}}
+.fila-leg{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.fila-leg span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:1px}
+.fila-leg .l-ia::before{background:var(--azul)} .fila-leg .l-h::before{background:var(--laranja)}
+
+/* 3 · dois problemas */
+.dois{display:grid;gap:14px;margin-top:10px}
+@media (min-width:820px){.dois{grid-template-columns:1fr 1fr}}
+.caixa{border:1px solid var(--linha);border-radius:10px;padding:24px;background:rgba(10,10,28,.6);backdrop-filter:blur(4px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,0,1)}
+.caixa h3{margin:10px 0 10px;font-size:22px;font-weight:600;font-stretch:90%;line-height:1.2}
+.caixa p{margin:0;color:var(--apagado)}
+.js .caixa.antes{opacity:.3;transform:translateY(16px)}
+
+/* 4 · diagrama */
+.plataforma{display:grid;gap:36px;align-items:center}
+@media (min-width:900px){.plataforma{grid-template-columns:1fr 1.1fr}}
+.diag{width:100%;max-width:560px;justify-self:center;overflow:visible}
+.diag text{font-family:var(--mono);font-size:11px;fill:var(--apagado);letter-spacing:.04em}
+.diag .fio{stroke:rgba(255,255,255,.14);stroke-width:1;fill:none;transition:stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1),stroke .6s}
+.diag .fio.on{stroke:rgba(42,169,224,.7)}
+.diag .ponto{fill:var(--espaco);stroke:var(--azul);stroke-width:1.2;transition:opacity .5s}
+.diag .centro{fill:var(--texto)}
+.lema{margin-top:22px;font-family:var(--mono);font-size:13px;color:var(--texto);letter-spacing:.02em}
+
+/* 5 · constelação */
+.constelacao{display:grid;grid-template-columns:repeat(20,1fr);gap:clamp(6px,1.4vw,12px);max-width:560px;margin:10px 0 30px}
+.estrela{aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.1);transition:background .4s,box-shadow .4s}
+.estrela.on{background:#fff;box-shadow:0 0 6px rgba(255,255,255,.5)}
+.estrela.primeira{background:var(--laranja);box-shadow:0 0 8px rgba(247,161,17,.6)}
+
+/* 6 · propósito + lista */
+.fecho{text-align:left}
+.fecho .frase{margin:0 0 56px;max-width:22ch;font-size:clamp(30px,4.6vw,58px);line-height:1.08;font-weight:600;font-stretch:84%;letter-spacing:-.01em;text-wrap:balance}
+.fecho .frase em{font-style:normal;color:var(--laranja)}
+form{display:grid;gap:14px;max-width:640px}
+.duas{display:grid;gap:14px}
+@media (min-width:640px){.duas{grid-template-columns:1fr 1fr}}
+label{display:grid;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+input,textarea{font:inherit;font-family:var(--sans);font-size:16px;text-transform:none;letter-spacing:0;color:var(--texto);background:rgba(10,10,28,.7);border:1px solid var(--linha);border-radius:8px;padding:12px 14px;width:100%}
+textarea{min-height:110px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--azul)}
+button{justify-self:start;font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:13px 22px;cursor:pointer}
+button:hover{background:#fff}
+.aviso{font-family:var(--mono);font-size:12px;color:var(--verde);min-height:1.2em}
+
+footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
+footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){
+  .acende .p{opacity:1}
+  .js .caixa.antes{opacity:1;transform:none}
+  .etapa.humana.on{animation:none}
+}
+</style>
+</head>
+<body>
+<canvas id="ceu" aria-hidden="true"></canvas>
+<div class="nebulosa" aria-hidden="true"></div>
+
+<header class="topo"><div class="env">
+  <span class="marca"><span id="mini" aria-hidden="true"></span>urbiverso</span>
+  <nav class="mono"><span class="tag">Rascunho</span><a href="#lista">Lista de espera</a></nav>
+</div></header>
+
+<main>
+<section class="abertura">
+  <div class="vortice" id="vortice" role="img" aria-label="Símbolo da Urbiverso girando"></div>
+  <h1>Ajudamos empresas a migrar para a economia pós-singularidade</h1>
+  <p>Uma plataforma para a sua empresa construir, com IA, o software de que precisa, e colocá-lo no ar do jeito certo.</p>
+</section>
+
+<section class="capitulo" id="c1"><div class="env">
+  <div class="rotulo mono"><span class="n">01</span><span>A virada</span></div>
+  <p class="acende" id="acende">A inteligência ficou abundante. Ciência e tecnologia vão avançar num ritmo que nenhuma equipe humana acompanha sozinha. Operar em milissegundos, e não em semanas, virou requisito.</p>
+</div></section>
+
+<section class="capitulo" id="c2"><div class="env">
+  <div class="rotulo mono"><span class="n">02</span><span>O gargalo</span></div>
+  <h2>Num fluxo com dez etapas feitas por IA e uma por uma pessoa, a etapa da pessoa é o gargalo</h2>
+  <div class="fila" id="fila" aria-hidden="true"></div>
+  <div class="fila-leg mono"><span class="l-ia">Etapa com IA</span><span class="l-h">Etapa manual</span></div>
+  <div class="corpo">
+    <p>A empresa que não reconstruir seus fluxos pensando primeiro na IA vai ficar para trás. <strong>Uma pessoa numa garagem, com alguns agentes, já consegue derrubar uma empresa de centenas de funcionários</strong> que faz as coisas do jeito antigo.</p>
+  </div>
+</div></section>
+
+<section class="capitulo" id="c3"><div class="env">
+  <div class="rotulo mono"><span class="n">03</span><span>O impasse</span></div>
+  <h2>Reconstruir exige software novo. Os dois caminhos de hoje não servem</h2>
+  <div class="dois">
+    <div class="caixa antes"><span class="mono">Caminho 1</span><h3>O sisteminha feito com IA</h3><p>Qualquer pessoa pede um painel ao ChatGPT ou ao Claude e ganha algo bonito em uma tarde. Só que ele não tem usuários, controle de acesso, banco de dados de verdade nem API. Não escala e não dá para vender.</p></div>
+    <div class="caixa antes"><span class="mono">Caminho 2</span><h3>A prateleira e a software house</h3><p>O sistema de prateleira é caro, rígido e quase nunca tem API. O sob medida leva meses de especificação e deixa você dependente de quem fez, até para corrigir um bug.</p></div>
+  </div>
+</div></section>
+
+<section class="capitulo" id="c4"><div class="env plataforma">
+  <div>
+    <div class="rotulo mono"><span class="n">04</span><span>O Urbiverso</span></div>
+    <h2>Onde a ideia vira aplicação de verdade</h2>
+    <div class="corpo">
+      <p>Você recebe uma instância só sua e é o dono dela. Nós cuidamos da plataforma. Sua equipe descreve o que precisa, a IA constrói, e o app já nasce com o que um sistema sério exige.</p>
+      <p>Agentes de IA entram como qualquer usuário: com login, permissões e trilha de auditoria.</p>
+    </div>
+    <div class="lema">Tudo que clica, integra. Tudo que integra, clica.</div>
+  </div>
+  <svg class="diag" id="diag" viewBox="0 0 560 420" role="img" aria-label="Diagrama: o app no centro, ligado a usuários e acesso, banco de dados, API, segurança e auditoria, atualização automática e agentes"></svg>
+</div></section>
+
+<section class="capitulo" id="c5"><div class="env">
+  <div class="rotulo mono"><span class="n">05</span><span>Escala</span></div>
+  <h2>O esforço de fazer para um cliente passa a servir para cem</h2>
+  <div class="constelacao" id="constelacao" aria-hidden="true"></div>
+  <div class="corpo"><p>Quem tem uma boa ideia não precisa montar infraestrutura, contratar equipe de TI nem refazer tudo quando o segundo cliente chegar. O app que resolveu o problema de uma empresa já está pronto para resolver o de outras.</p></div>
+</div></section>
+
+<section class="capitulo fecho" id="lista"><div class="env">
+  <div class="rotulo mono"><span class="n">06</span><span>Próximos clientes</span></div>
+  <p class="frase">Com inteligência abundante, o que diferencia uma empresa é o <em>propósito</em>, a ideia original e a criatividade para criar algo novo.</p>
+  <h2>Estamos escolhendo os próximos clientes</h2>
+  <div class="corpo"><p>Abrimos poucas vagas por vez. Conte quem você é e o que quer construir.</p></div>
+  <form id="form" novalidate>
+    <div class="duas">
+      <label for="f-nome">Nome<input id="f-nome" name="nome" autocomplete="name" required></label>
+      <label for="f-email">E-mail<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+    </div>
+    <div class="duas">
+      <label for="f-empresa">Empresa<input id="f-empresa" name="empresa" autocomplete="organization"></label>
+      <label for="f-papel">O que você faz<input id="f-papel" name="papel" placeholder="Cargo, área ou negócio"></label>
+    </div>
+    <label for="f-ideia">O que você quer construir, ou que problema quer resolver<textarea id="f-ideia" name="ideia" required></textarea></label>
+    <button type="submit">Quero participar</button>
+    <div class="aviso" id="aviso" role="status"></div>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="env mono"><span>© 2026 Urbiverso Ltda</span><span>urbiverso.com.br</span></div></footer>
+
+<script>
+document.documentElement.classList.add('js');
+const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+
+/* Céu: três camadas de estrelas, brilho lento, paralaxe leve na rolagem */
+const ceu=document.getElementById('ceu'), cx=ceu.getContext('2d');
+let estrelas=[], W=0, H=0, dpr=1;
+function semear(){
+  dpr=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
+  ceu.width=W*dpr; ceu.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
+  const n=Math.round(W*H/2600); let s=7;
+  const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647;};
+  estrelas=Array.from({length:n},()=>{const c=rnd();return {x:rnd()*W,y:rnd()*H*1.6,r:.3+rnd()*1.1,camada:c<.6?.05:c<.9?.12:.22,fase:rnd()*6.28,vel:.4+rnd()*1.2,cor:rnd()<.08?'247,161,17':rnd()<.1?'42,169,224':'255,255,255'};});
+}
+function desenhar(t){
+  cx.clearRect(0,0,W,H);
+  const y0=scrollY;
+  for(const e of estrelas){
+    const y=((e.y-y0*e.camada)%(H*1.6)+H*1.6)%(H*1.6);
+    if(y>H) continue;
+    const a=reduz?.7:.45+.45*Math.sin(t/1000*e.vel+e.fase);
+    cx.fillStyle=`rgba(${e.cor},${a.toFixed(2)})`;
+    cx.beginPath();cx.arc(e.x,y,e.r,0,6.283);cx.fill();
+  }
+}
+semear(); addEventListener('resize',semear);
+
+/* Vórtice: gira no sentido anti-horário, devagar; a rolagem acrescenta giro */
+const vortice=document.getElementById('vortice');
+fetch('assets/vortice.svg').then(r=>r.text()).then(svg=>{vortice.innerHTML=svg;document.getElementById('mini').innerHTML=svg;});
+let angulo=0, ultimo=performance.now(), rolagemAnterior=scrollY;
+function laco(t){
+  const dt=t-ultimo; ultimo=t;
+  if(!reduz){
+    angulo-=dt*0.006;                         // ~60s por volta
+    angulo-=Math.abs(scrollY-rolagemAnterior)*0.08;   // rolar (para qualquer lado) acelera o giro anti-horário
+    rolagemAnterior=scrollY;
+    vortice.style.transform=`rotate(${angulo}deg)`;
+  }
+  desenhar(t);
+  textoAcende();
+  requestAnimationFrame(laco);
+}
+requestAnimationFrame(laco);
+
+/* 01 · texto acende conforme a leitura */
+const acende=document.getElementById('acende');
+acende.innerHTML=acende.textContent.split(' ').map(w=>`<span class="p">${w}</span>`).join(' ');
+const palavras=[...acende.querySelectorAll('.p')];
+function textoAcende(){
+  if(reduz) return;
+  const r=acende.getBoundingClientRect();
+  const p=clamp((innerHeight*.85-r.top)/(r.height+innerHeight*.35));
+  const n=Math.round(p*palavras.length);
+  palavras.forEach((w,i)=>w.classList.toggle('on',i<n));
+}
+
+/* Cada capítulo dispara sua animação uma vez, ao entrar na tela */
+function aoEntrar(el,fn){
+  if(reduz){fn(true);return;}
+  const o=new IntersectionObserver(es=>{if(es[0].isIntersecting){fn(false);o.disconnect();}},{threshold:.35});
+  o.observe(el);
+}
+
+/* 02 · dez etapas com IA acendem rápido; a manual fica esperando */
+const fila=document.getElementById('fila');
+const etapas=Array.from({length:11},(_,i)=>{const d=document.createElement('span');d.className='etapa'+(i===7?' humana':'');fila.appendChild(d);return d;});
+aoEntrar(document.getElementById('c2'),ja=>{
+  let atraso=0;
+  etapas.forEach((e,i)=>{
+    if(i===7){ setTimeout(()=>e.classList.add('on'),ja?0:atraso); atraso+=ja?0:900; }
+    else { setTimeout(()=>e.classList.add('ia'),ja?0:atraso); atraso+=ja?0:90; }
+  });
+});
+
+/* 03 · os dois caminhos aparecem */
+aoEntrar(document.getElementById('c3'),ja=>{
+  document.querySelectorAll('.caixa').forEach((c,i)=>setTimeout(()=>c.classList.remove('antes'),ja?0:i*250));
+});
+
+/* 04 · o app no centro, os fios se ligam */
+const NS='http://www.w3.org/2000/svg', diag=document.getElementById('diag');
+const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const C={x:280,y:210};
+const itens=[['usuários e acesso',90,70],['banco de dados',470,70],['API',520,210],['segurança e auditoria',470,350],['atualização automática',90,350],['agentes com login',40,210]];
+const fios=itens.map(([_,x,y])=>{const d=`M${C.x} ${C.y} C ${(C.x+x)/2} ${C.y}, ${(C.x+x)/2} ${y}, ${x} ${y}`;const f=el('path',{d,class:'fio'});diag.appendChild(f);const L=f.getTotalLength();f.style.strokeDasharray=L;f.style.strokeDashoffset=L;return f;});
+itens.forEach(([t,x,y])=>{diag.appendChild(el('circle',{cx:x,cy:y,r:5,class:'ponto'}));const tx=el('text',{x,y:y+(y<C.y?-14:24),'text-anchor':x<C.x-100?'start':x>C.x+100?'end':'middle'});tx.textContent=t;diag.appendChild(tx);});
+diag.appendChild(el('circle',{cx:C.x,cy:C.y,r:30,class:'centro'}));
+const tc=el('text',{x:C.x,y:C.y+4,'text-anchor':'middle',style:'fill:#03030A;font-weight:500'});tc.textContent='SEU APP';diag.appendChild(tc);
+aoEntrar(document.getElementById('c4'),ja=>{
+  fios.forEach((f,i)=>setTimeout(()=>{f.style.strokeDashoffset=0;f.classList.add('on');},ja?0:300+i*180));
+});
+
+/* 05 · uma estrela vira constelação de cem */
+const constel=document.getElementById('constelacao');
+const pontos=Array.from({length:100},(_,i)=>{const d=document.createElement('span');d.className='estrela'+(i===0?' primeira':'');constel.appendChild(d);return d;});
+aoEntrar(document.getElementById('c5'),ja=>{
+  const ordem=pontos.slice(1).map((p,i)=>({p,k:((i+1)*37)%99})).sort((a,b)=>a.k-b.k);
+  ordem.forEach((o,i)=>setTimeout(()=>o.p.classList.add('on'),ja?0:600+i*18));
+});
+
+/* Formulário: nesta direção é só demonstração */
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  document.getElementById('aviso').textContent='O formulário ainda não está ligado. Em breve.';
+});
+</script>
+</body>
+</html>
