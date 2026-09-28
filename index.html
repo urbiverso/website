@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Urbiverso</title>
-<meta name="description" content="Ajudamos empresas a migrar para a economia pós-singularidade.">
+<meta name="description" content="Ajudamos empreendedores e empresas a construir soluções para a era da singularidade.">
 <link rel="icon" href="assets/vortice.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,51 +54,32 @@ main,header,footer{position:relative;z-index:1}
 .capitulo .corpo strong{color:var(--texto);font-weight:500}
 
 /* 1 · texto que acende */
-.acende{margin:0;max-width:24ch;font-size:clamp(28px,4.2vw,54px);line-height:1.14;font-weight:500;font-stretch:90%;letter-spacing:-.01em;text-wrap:balance}
+.acende{margin:0 0 28px;max-width:24ch;font-size:clamp(28px,4.2vw,54px);line-height:1.14;font-weight:500;font-stretch:90%;letter-spacing:-.01em;text-wrap:balance}
 .acende .p{opacity:.18;transition:opacity .35s linear}
 .acende .p.on{opacity:1}
+.cta{display:inline-block;font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border-radius:8px;padding:13px 22px;text-decoration:none}
+.cta:hover{background:#fff}
 
-/* 2 · a fila de etapas */
-.fila{display:flex;gap:8px;align-items:center;margin:8px 0 34px;flex-wrap:wrap}
-.etapa{width:clamp(18px,4vw,34px);height:clamp(18px,4vw,34px);border-radius:50%;border:1px solid var(--linha);background:transparent;transition:background .25s,border-color .25s,box-shadow .25s}
-.etapa.ia{background:var(--azul);border-color:var(--azul)}
-.etapa.humana{border-color:var(--laranja)}
-.etapa.humana.on{background:var(--laranja);animation:espera 2.4s ease-in-out infinite}
-@keyframes espera{50%{opacity:.35}}
-.fila-leg{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:28px}
-.fila-leg span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:1px}
-.fila-leg .l-ia::before{background:var(--azul)} .fila-leg .l-h::before{background:var(--laranja)}
+/* 2 · letreiro da infraestrutura */
+.letreiro{margin-top:34px;display:grid;gap:10px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.faixa{display:flex;width:max-content;animation:corre var(--dur,60s) linear infinite}
+.faixa.volta{animation-direction:reverse}
+.faixa span{white-space:nowrap;font-weight:600;font-stretch:80%;font-size:clamp(26px,4.4vw,56px);line-height:1.15;letter-spacing:-.01em;padding-right:.55em}
+.faixa span::after{content:"✦";color:var(--laranja);font-size:.4em;vertical-align:.45em;padding-left:.55em}
+.faixa.apagada span{color:var(--apagado)}
+@keyframes corre{to{transform:translateX(-50%)}}
+.so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 
-/* 3 · dois problemas */
-.dois{display:grid;gap:14px;margin-top:10px}
-@media (min-width:820px){.dois{grid-template-columns:1fr 1fr}}
-.caixa{border:1px solid var(--linha);border-radius:10px;padding:24px;background:rgba(10,10,28,.6);backdrop-filter:blur(4px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,0,1)}
-.caixa h3{margin:10px 0 10px;font-size:22px;font-weight:600;font-stretch:90%;line-height:1.2}
-.caixa p{margin:0;color:var(--apagado)}
-.js .caixa.antes{opacity:.3;transform:translateY(16px)}
+/* 3 · escala: grafo que vira galáxia */
+.escala{position:relative;height:320vh;border-top:1px solid var(--linha)}
+.palco{position:sticky;top:0;height:100svh;overflow:hidden}
+#galaxia{position:absolute;inset:0;width:100%;height:100%}
+.palco .env{position:relative;padding-top:88px}
+.palco h2{margin:0;max-width:18ch;font-weight:700;font-stretch:80%;font-size:clamp(30px,4.6vw,58px);line-height:1.04;letter-spacing:-.01em;text-wrap:balance}
 
-/* 4 · diagrama */
-.plataforma{display:grid;gap:36px;align-items:center}
-@media (min-width:900px){.plataforma{grid-template-columns:1fr 1.1fr}}
-.diag{width:100%;max-width:560px;justify-self:center;overflow:visible}
-.diag text{font-family:var(--mono);font-size:11px;fill:var(--apagado);letter-spacing:.04em}
-.diag .fio{stroke:rgba(255,255,255,.14);stroke-width:1;fill:none;transition:stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1),stroke .6s}
-.diag .fio.on{stroke:rgba(42,169,224,.7)}
-.diag .ponto{fill:var(--espaco);stroke:var(--azul);stroke-width:1.2;transition:opacity .5s}
-.diag .centro{fill:var(--texto)}
-.lema{margin-top:22px;font-family:var(--mono);font-size:13px;color:var(--texto);letter-spacing:.02em}
-
-/* 5 · constelação */
-.constelacao{display:grid;grid-template-columns:repeat(20,1fr);gap:clamp(6px,1.4vw,12px);max-width:560px;margin:10px 0 30px}
-.estrela{aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.1);transition:background .4s,box-shadow .4s}
-.estrela.on{background:#fff;box-shadow:0 0 6px rgba(255,255,255,.5)}
-.estrela.primeira{background:var(--laranja);box-shadow:0 0 8px rgba(247,161,17,.6)}
-
-/* 6 · propósito + lista */
-.fecho{text-align:left}
-.fecho .frase{margin:0 0 56px;max-width:22ch;font-size:clamp(30px,4.6vw,58px);line-height:1.08;font-weight:600;font-stretch:84%;letter-spacing:-.01em;text-wrap:balance}
-.fecho .frase em{font-style:normal;color:var(--laranja)}
-form{display:grid;gap:14px;max-width:640px}
+/* 4 · formulário */
+form{display:grid;gap:14px;max-width:640px;margin-top:8px}
 .duas{display:grid;gap:14px}
 @media (min-width:640px){.duas{grid-template-columns:1fr 1fr}}
 label{display:grid;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
@@ -114,8 +95,10 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){
   .acende .p{opacity:1}
-  .js .caixa.antes{opacity:1;transform:none}
-  .etapa.humana.on{animation:none}
+  .faixa{animation:none;width:auto;flex-wrap:wrap}
+  .faixa span:nth-child(n+7){display:none}
+  .escala{height:auto}
+  .palco{position:relative}
 }
 </style>
 </head>
@@ -125,76 +108,54 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <header class="topo"><div class="env">
   <span class="marca"><span id="mini" aria-hidden="true"></span>urbiverso</span>
-  <nav class="mono"><span class="tag">Rascunho</span><a href="#lista">Lista de espera</a></nav>
+  <nav class="mono"><span class="tag">Rascunho</span><a href="#lista">Quero conhecer</a></nav>
 </div></header>
 
 <main>
 <section class="abertura">
   <div class="vortice" id="vortice" role="img" aria-label="Símbolo da Urbiverso girando"></div>
-  <h1>Ajudamos empresas a migrar para a economia pós-singularidade</h1>
-  <p>Uma plataforma para a sua empresa construir, com IA, o software de que precisa, e colocá-lo no ar do jeito certo.</p>
+  <h1>Ajudamos empreendedores e empresas a construir soluções para a era da singularidade.</h1>
+  <p>A infraestrutura que te permite surfar a onda da IA e escalar o seu negócio.</p>
+  <a class="cta" href="#lista">Quero conhecer</a>
 </section>
 
 <section class="capitulo" id="c1"><div class="env">
   <div class="rotulo mono"><span class="n">01</span><span>A virada</span></div>
-  <p class="acende" id="acende">A inteligência ficou abundante. Ciência e tecnologia vão avançar num ritmo que nenhuma equipe humana acompanha sozinha. Operar em milissegundos, e não em semanas, virou requisito.</p>
+  <p class="acende" id="acende">Na era da singularidade, fluxos que levavam semanas precisam rodar em milissegundos, e quem não migrar vai ficar para trás.</p>
+  <div class="corpo"><p>A IA qualifica o trabalho das pessoas; o desafio é redesenhar a organização (estruturas, processos, organogramas) em torno disso.</p></div>
 </div></section>
 
 <section class="capitulo" id="c2"><div class="env">
-  <div class="rotulo mono"><span class="n">02</span><span>O gargalo</span></div>
-  <h2>Num fluxo com dez etapas feitas por IA e uma por uma pessoa, a etapa da pessoa é o gargalo</h2>
-  <div class="fila" id="fila" aria-hidden="true"></div>
-  <div class="fila-leg mono"><span class="l-ia">Etapa com IA</span><span class="l-h">Etapa manual</span></div>
-  <div class="corpo">
-    <p>A empresa que não reconstruir seus fluxos pensando primeiro na IA vai ficar para trás. <strong>Uma pessoa numa garagem, com alguns agentes, já consegue derrubar uma empresa de centenas de funcionários</strong> que faz as coisas do jeito antigo.</p>
+  <div class="rotulo mono"><span class="n">02</span><span>Infraestrutura pronta</span></div>
+  <h2>Seu produto nasce sobre uma estrutura completa, já embarcada.</h2>
+  <ul class="so-leitor"><li>Usuários e permissões para pessoas e agentes</li><li>Banco com dados separados por cliente</li><li>Trilha de auditoria imutável</li><li>Correção e evolução em tempo real por agentes</li><li>IA embutida: documentos, classificação, áudio</li><li>Integrações e Slack</li><li>E-mail no seu domínio</li><li>Tarefas agendadas</li><li>Páginas e formulários públicos</li><li>Atualizações sem parar o sistema</li><li>Sua marca em tudo</li></ul>
+</div>
+  <div class="letreiro" aria-hidden="true">
+    <div class="faixa" style="--dur:70s"><span>Usuários e permissões para pessoas e agentes</span><span>Banco com dados separados por cliente</span><span>Trilha de auditoria imutável</span><span>Correção e evolução em tempo real por agentes</span><span>IA embutida: documentos, classificação, áudio</span><span>Integrações e Slack</span><span>Usuários e permissões para pessoas e agentes</span><span>Banco com dados separados por cliente</span><span>Trilha de auditoria imutável</span><span>Correção e evolução em tempo real por agentes</span><span>IA embutida: documentos, classificação, áudio</span><span>Integrações e Slack</span></div>
+    <div class="faixa volta apagada" style="--dur:60s"><span>E-mail no seu domínio</span><span>Tarefas agendadas</span><span>Páginas e formulários públicos</span><span>Atualizações sem parar o sistema</span><span>Sua marca em tudo</span><span>E-mail no seu domínio</span><span>Tarefas agendadas</span><span>Páginas e formulários públicos</span><span>Atualizações sem parar o sistema</span><span>Sua marca em tudo</span></div>
   </div>
-</div></section>
+</section>
 
-<section class="capitulo" id="c3"><div class="env">
-  <div class="rotulo mono"><span class="n">03</span><span>O impasse</span></div>
-  <h2>Reconstruir exige software novo. Os dois caminhos de hoje não servem</h2>
-  <div class="dois">
-    <div class="caixa antes"><span class="mono">Caminho 1</span><h3>O sisteminha feito com IA</h3><p>Qualquer pessoa pede um painel ao ChatGPT ou ao Claude e ganha algo bonito em uma tarde. Só que ele não tem usuários, controle de acesso, banco de dados de verdade nem API. Não escala e não dá para vender.</p></div>
-    <div class="caixa antes"><span class="mono">Caminho 2</span><h3>A prateleira e a software house</h3><p>O sistema de prateleira é caro, rígido e quase nunca tem API. O sob medida leva meses de especificação e deixa você dependente de quem fez, até para corrigir um bug.</p></div>
-  </div>
-</div></section>
-
-<section class="capitulo" id="c4"><div class="env plataforma">
-  <div>
-    <div class="rotulo mono"><span class="n">04</span><span>O Urbiverso</span></div>
-    <h2>Onde a ideia vira aplicação de verdade</h2>
-    <div class="corpo">
-      <p>Você recebe uma instância só sua e é o dono dela. Nós cuidamos da plataforma. Sua equipe descreve o que precisa, a IA constrói, e o app já nasce com o que um sistema sério exige.</p>
-      <p>Agentes de IA entram como qualquer usuário: com login, permissões e trilha de auditoria.</p>
+<section class="escala" id="c3">
+  <div class="palco">
+    <canvas id="galaxia" aria-hidden="true"></canvas>
+    <div class="env">
+      <div class="rotulo mono"><span class="n">03</span><span>Escala</span></div>
+      <h2>Do primeiro cliente em diante: infraestrutura e segurança para crescer.</h2>
     </div>
-    <div class="lema">Tudo que clica, integra. Tudo que integra, clica.</div>
   </div>
-  <svg class="diag" id="diag" viewBox="0 0 560 420" role="img" aria-label="Diagrama: o app no centro, ligado a usuários e acesso, banco de dados, API, segurança e auditoria, atualização automática e agentes"></svg>
-</div></section>
+</section>
 
-<section class="capitulo" id="c5"><div class="env">
-  <div class="rotulo mono"><span class="n">05</span><span>Escala</span></div>
-  <h2>O esforço de fazer para um cliente passa a servir para cem</h2>
-  <div class="constelacao" id="constelacao" aria-hidden="true"></div>
-  <div class="corpo"><p>Quem tem uma boa ideia não precisa montar infraestrutura, contratar equipe de TI nem refazer tudo quando o segundo cliente chegar. O app que resolveu o problema de uma empresa já está pronto para resolver o de outras.</p></div>
-</div></section>
-
-<section class="capitulo fecho" id="lista"><div class="env">
-  <div class="rotulo mono"><span class="n">06</span><span>Próximos clientes</span></div>
-  <p class="frase">Com inteligência abundante, o que diferencia uma empresa é o <em>propósito</em>, a ideia original e a criatividade para criar algo novo.</p>
-  <h2>Estamos escolhendo os próximos clientes</h2>
-  <div class="corpo"><p>Abrimos poucas vagas por vez. Conte quem você é e o que quer construir.</p></div>
+<section class="capitulo" id="lista"><div class="env">
+  <div class="rotulo mono"><span class="n">04</span><span>Contato</span></div>
+  <h2>Quer conhecer mais?</h2>
   <form id="form" novalidate>
     <div class="duas">
       <label for="f-nome">Nome<input id="f-nome" name="nome" autocomplete="name" required></label>
       <label for="f-email">E-mail<input id="f-email" name="email" type="email" autocomplete="email" required></label>
     </div>
-    <div class="duas">
-      <label for="f-empresa">Empresa<input id="f-empresa" name="empresa" autocomplete="organization"></label>
-      <label for="f-papel">O que você faz<input id="f-papel" name="papel" placeholder="Cargo, área ou negócio"></label>
-    </div>
-    <label for="f-ideia">O que você quer construir, ou que problema quer resolver<textarea id="f-ideia" name="ideia" required></textarea></label>
-    <button type="submit">Quero participar</button>
+    <label for="f-ideia">O que você quer construir?<textarea id="f-ideia" name="ideia" required></textarea></label>
+    <button type="submit">Quero conhecer</button>
     <div class="aviso" id="aviso" role="status"></div>
   </form>
 </div></section>
@@ -244,6 +205,7 @@ function laco(t){
   }
   desenhar(t);
   textoAcende();
+  galaxia();
   requestAnimationFrame(laco);
 }
 requestAnimationFrame(laco);
@@ -260,49 +222,67 @@ function textoAcende(){
   palavras.forEach((w,i)=>w.classList.toggle('on',i<n));
 }
 
-/* Cada capítulo dispara sua animação uma vez, ao entrar na tela */
-function aoEntrar(el,fn){
-  if(reduz){fn(true);return;}
-  const o=new IntersectionObserver(es=>{if(es[0].isIntersecting){fn(false);o.disconnect();}},{threshold:.35});
-  o.observe(el);
+/* 03 · escala: um ponto se liga aos vizinhos, a rede cresce, a câmera se afasta e a rede vira galáxia */
+const esc=document.getElementById('c3'), gal=document.getElementById('galaxia'), gx=gal.getContext('2d');
+let GW=0, GH=0;
+function medirGal(){const d=Math.min(devicePixelRatio||1,2);GW=gal.clientWidth;GH=gal.clientHeight;gal.width=GW*d;gal.height=GH*d;gx.setTransform(d,0,0,d,0,0);}
+medirGal(); addEventListener('resize',medirGal);
+const pts=(()=>{
+  let s=11; const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647;};
+  const gauss=()=>{let u=0;for(let i=0;i<4;i++)u+=rnd();return (u-2)/1.15;};
+  const g=[];
+  // galáxia: dois braços em espiral e um núcleo
+  for(let i=0;i<6500;i++){
+    let x,y;
+    if(rnd()<.2){const r=Math.abs(gauss())*.17, a=rnd()*6.283; x=Math.cos(a)*r; y=Math.sin(a)*r;}
+    else{const t=Math.pow(rnd(),.8), braco=rnd()<.5?0:Math.PI, a=braco+t*4.4+gauss()*.42*(1.1-t*.5), r=.08+t*.95+gauss()*.05;
+      x=Math.cos(a)*r+gauss()*.06; y=Math.sin(a)*r+gauss()*.06;}
+    g.push({x,y:y*.68,rede:false});
+  }
+  // ponto de partida num dos braços, e a rede em volta dele, densa em todas as escalas
+  const t0=.5, a0=t0*4.4, r0=.08+t0*.95, O={x:Math.cos(a0)*r0,y:Math.sin(a0)*r0*.68};
+  for(let i=0;i<420;i++){const r=.0012*Math.pow(160,rnd()), a=rnd()*6.283; g.push({x:O.x+Math.cos(a)*r,y:O.y+Math.sin(a)*r*.8,rede:true});}
+  g.push({x:O.x,y:O.y,rede:true,origem:true});
+  for(const p of g){p.d=Math.hypot(p.x-O.x,p.y-O.y); p.cor=p.origem?'247,161,17':rnd()<.12?'42,169,224':rnd()<.05?'154,43,121':'255,255,255'; p.r=p.rede?1.6:.4+rnd()*.8;}
+  g.sort((a,b)=>a.d-b.d);
+  // cada nó da rede se liga aos dois vizinhos mais próximos que já existiam
+  const rede=g.filter(p=>p.rede);
+  rede.forEach((p,k)=>{let m=[];for(let j=0;j<k;j++){const q=rede[j],d=Math.hypot(p.x-q.x,p.y-q.y);m.push([d,q]);}m.sort((a,b)=>a[0]-b[0]);p.lig=m.slice(0,2).map(v=>v[1]);});
+  g.O=O; g.max=g[g.length-1].d; return g;
+})();
+const suave=t=>t*t*(3-2*t);
+function galaxia(){
+  const r=esc.getBoundingClientRect();
+  if(r.bottom<0||r.top>innerHeight) return;
+  const p=reduz?1:clamp(-r.top/(r.height-innerHeight));
+  const m=Math.min(GW,GH), R0=.0009, R=R0*Math.pow(pts.max/R0,p);      // raio da rede cresce exponencialmente
+  const esc1=Math.max(.38*m/R,.44*m);                                  // a câmera se afasta até caber a galáxia
+  const k=suave(clamp((p-.55)/.45));
+  const cx0=pts.O.x*(1-k), cy0=pts.O.y*(1-k);                          // e desliza da origem para o centro
+  const ox=GW/2, oy=GH*.58;
+  gx.clearRect(0,0,GW,GH);
+  const brilho=clamp((p-.7)/.3);
+  if(brilho>0){const cx=ox-cx0*esc1, cy=oy-cy0*esc1, rg=gx.createRadialGradient(cx,cy,0,cx,cy,.55*esc1);
+    rg.addColorStop(0,`rgba(180,190,255,${(.22*brilho).toFixed(3)})`);rg.addColorStop(.35,`rgba(26,26,85,${(.35*brilho).toFixed(3)})`);rg.addColorStop(1,'rgba(26,26,85,0)');
+    gx.fillStyle=rg;gx.fillRect(0,0,GW,GH);}
+  const ligAlfa=clamp(1-(p-.45)/.4)*.55;
+  if(ligAlfa>0){
+    gx.lineWidth=1; gx.strokeStyle=`rgba(42,169,224,${ligAlfa.toFixed(3)})`; gx.beginPath();
+    for(const q of pts){ if(q.d>R) break; if(!q.lig) continue;
+      const x=ox+(q.x-cx0)*esc1, y=oy+(q.y-cy0)*esc1;
+      for(const v of q.lig){gx.moveTo(x,y);gx.lineTo(ox+(v.x-cx0)*esc1,oy+(v.y-cy0)*esc1);} }
+    gx.stroke();
+  }
+  const tamRede=1+2.2*clamp(1-p/.5);
+  for(const q of pts){
+    if(q.d>R) break;
+    const x=ox+(q.x-cx0)*esc1, y=oy+(q.y-cy0)*esc1;
+    if(x<-4||y<-4||x>GW+4||y>GH+4) continue;
+    const a=clamp((R-q.d)/(R*.25+1e-6));
+    gx.fillStyle=`rgba(${q.cor},${((.25+.75*a)*(q.rede?1:.8)).toFixed(2)})`;
+    gx.beginPath(); gx.arc(x,y,q.origem?3.5:q.rede?q.r*tamRede*.7:q.r,0,6.283); gx.fill();
+  }
 }
-
-/* 02 · dez etapas com IA acendem rápido; a manual fica esperando */
-const fila=document.getElementById('fila');
-const etapas=Array.from({length:11},(_,i)=>{const d=document.createElement('span');d.className='etapa'+(i===7?' humana':'');fila.appendChild(d);return d;});
-aoEntrar(document.getElementById('c2'),ja=>{
-  let atraso=0;
-  etapas.forEach((e,i)=>{
-    if(i===7){ setTimeout(()=>e.classList.add('on'),ja?0:atraso); atraso+=ja?0:900; }
-    else { setTimeout(()=>e.classList.add('ia'),ja?0:atraso); atraso+=ja?0:90; }
-  });
-});
-
-/* 03 · os dois caminhos aparecem */
-aoEntrar(document.getElementById('c3'),ja=>{
-  document.querySelectorAll('.caixa').forEach((c,i)=>setTimeout(()=>c.classList.remove('antes'),ja?0:i*250));
-});
-
-/* 04 · o app no centro, os fios se ligam */
-const NS='http://www.w3.org/2000/svg', diag=document.getElementById('diag');
-const el=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
-const C={x:280,y:210};
-const itens=[['usuários e acesso',90,70],['banco de dados',470,70],['API',520,210],['segurança e auditoria',470,350],['atualização automática',90,350],['agentes com login',40,210]];
-const fios=itens.map(([_,x,y])=>{const d=`M${C.x} ${C.y} C ${(C.x+x)/2} ${C.y}, ${(C.x+x)/2} ${y}, ${x} ${y}`;const f=el('path',{d,class:'fio'});diag.appendChild(f);const L=f.getTotalLength();f.style.strokeDasharray=L;f.style.strokeDashoffset=L;return f;});
-itens.forEach(([t,x,y])=>{diag.appendChild(el('circle',{cx:x,cy:y,r:5,class:'ponto'}));const tx=el('text',{x,y:y+(y<C.y?-14:24),'text-anchor':x<C.x-100?'start':x>C.x+100?'end':'middle'});tx.textContent=t;diag.appendChild(tx);});
-diag.appendChild(el('circle',{cx:C.x,cy:C.y,r:30,class:'centro'}));
-const tc=el('text',{x:C.x,y:C.y+4,'text-anchor':'middle',style:'fill:#03030A;font-weight:500'});tc.textContent='SEU APP';diag.appendChild(tc);
-aoEntrar(document.getElementById('c4'),ja=>{
-  fios.forEach((f,i)=>setTimeout(()=>{f.style.strokeDashoffset=0;f.classList.add('on');},ja?0:300+i*180));
-});
-
-/* 05 · uma estrela vira constelação de cem */
-const constel=document.getElementById('constelacao');
-const pontos=Array.from({length:100},(_,i)=>{const d=document.createElement('span');d.className='estrela'+(i===0?' primeira':'');constel.appendChild(d);return d;});
-aoEntrar(document.getElementById('c5'),ja=>{
-  const ordem=pontos.slice(1).map((p,i)=>({p,k:((i+1)*37)%99})).sort((a,b)=>a.k-b.k);
-  ordem.forEach((o,i)=>setTimeout(()=>o.p.classList.add('on'),ja?0:600+i*18));
-});
 
 /* Formulário: nesta direção é só demonstração */
 document.getElementById('form').addEventListener('submit',e=>{
