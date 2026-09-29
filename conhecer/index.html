@@ -56,7 +56,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--azul)}
 .escolha:has(input:focus-visible){outline:2px solid var(--laranja);outline-offset:3px;border-radius:10px}
 .perfis{display:grid;gap:12px}
 @media (min-width:640px){.perfis{grid-template-columns:1fr 1fr}}
-.cartao{display:grid;gap:6px;height:100%;padding:18px 18px 20px;border:1px solid var(--linha);border-radius:10px;background:var(--campo);transition:border-color .2s,background .2s}
+.cartao{display:grid;gap:6px;align-content:start;height:100%;padding:18px 18px 20px;border:1px solid var(--linha);border-radius:10px;background:var(--campo);transition:border-color .2s,background .2s}
 .cartao b{font-weight:600;font-size:18px;line-height:1.25}
 .cartao small{font-size:15px;line-height:1.45;color:var(--apagado)}
 .escolha:hover .cartao{border-color:rgba(255,255,255,.22)}
@@ -70,9 +70,17 @@ input:focus,textarea:focus{outline:none;border-color:var(--azul)}
 .ficha{display:block;padding:8px 14px;border:1px solid var(--linha);border-radius:999px;background:var(--campo);font-size:15px;line-height:1.3;transition:border-color .2s,background .2s,color .2s}
 .escolha:hover .ficha{border-color:rgba(255,255,255,.22)}
 .escolha:has(input:checked) .ficha{border-color:var(--laranja);background:rgba(247,161,17,.1);color:#fff}
-.grupo{display:grid;gap:8px;margin-bottom:16px}
-.grupo:last-child{margin-bottom:0}
-.grupo>.mono{font-size:11px}
+.dica{margin:-8px 0 14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+.categorias{display:grid;gap:12px;margin-bottom:12px}
+@media (min-width:640px){.categorias{grid-template-columns:1fr 1fr}}
+.categorias .cartao{position:relative;padding-right:46px}
+.categorias .cartao::after{content:"";position:absolute;top:16px;right:16px;width:18px;height:18px;border-radius:5px;border:1px solid rgba(255,255,255,.35);transition:background-color .2s,border-color .2s}
+.categorias .escolha:has(input:checked) .cartao::after{border-color:var(--laranja);background:var(--laranja) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.6 9.6 3.6' fill='none' stroke='%2303030A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+.detalhe{display:grid;gap:12px;margin-top:18px;padding-left:16px;border-left:2px solid rgba(247,161,17,.45)}
+.detalhe:not([hidden]){animation:aparece .45s ease both}
+@keyframes aparece{from{opacity:0;transform:translateY(-6px)}}
+.preambulo{margin:0;max-width:56ch;color:var(--apagado);font-size:16px;line-height:1.5}
+@media (prefers-reduced-motion:reduce){.detalhe:not([hidden]){animation:none}}
 
 .envio{display:grid;gap:14px;justify-items:start}
 button{font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:14px 24px;cursor:pointer}
@@ -128,49 +136,26 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <label class="escolha"><input type="radio" name="ideia" value="tem-ideia"><span class="cartao"><span>Tenho uma ideia (ou várias) que quero oferecer no mercado</span></span></label>
         <label class="escolha"><input type="radio" name="ideia" value="conhecer"><span class="cartao"><span>Quero apenas conhecer mais</span></span></label>
       </div>
+      <div class="detalhe" id="detalhe-ideia" hidden>
+        <p class="preambulo">Se você nos explicar, mais ou menos, o que está imaginando, isso pode nos ajudar a saber se o Urbiverso é a solução ideal para você. Mas fique à vontade para não adiantar nada, se não quiser.</p>
+        <label class="campo" for="f-construir"><span class="pergunta">O que você quer construir?</span><textarea id="f-construir" name="construir"></textarea></label>
+      </div>
     </fieldset>
 
     <fieldset>
-      <legend>Quais destas você usa todos os dias?</legend>
-      <div class="grupo"><span class="mono">Conversa</span><div class="fichas" data-grupo>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="chatgpt"><span class="ficha">ChatGPT</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="claude"><span class="ficha">Claude</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="gemini"><span class="ficha">Gemini</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="grok"><span class="ficha">Grok</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="microsoft-copilot"><span class="ficha">Microsoft Copilot</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="perplexity"><span class="ficha">Perplexity</span></label>
-      </div></div>
-      <div class="grupo"><span class="mono">Programação</span><div class="fichas">
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="claude-code"><span class="ficha">Claude Code</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="codex"><span class="ficha">Codex</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="cursor"><span class="ficha">Cursor</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="github-copilot"><span class="ficha">GitHub Copilot</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="lovable"><span class="ficha">Lovable</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="replit"><span class="ficha">Replit</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="bolt"><span class="ficha">Bolt</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="v0"><span class="ficha">v0</span></label>
-      </div></div>
-      <div class="grupo"><span class="mono">Agentes</span><div class="fichas">
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="claude-cowork"><span class="ficha">Claude Cowork</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="openclaw"><span class="ficha">Agentes OpenClaw</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="hermes"><span class="ficha">Agentes Hermes</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="manus"><span class="ficha">Manus</span></label>
-      </div></div>
-      <div class="grupo"><span class="mono">Automação</span><div class="fichas">
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="n8n"><span class="ficha">n8n</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="make"><span class="ficha">Make</span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="zapier"><span class="ficha">Zapier</span></label>
-      </div></div>
-      <div class="grupo"><div class="fichas">
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="nenhuma" id="f-nenhuma"><span class="ficha">Nenhuma destas</span></label>
-      </div></div>
+      <legend>Você tem familiaridade com quais destas ferramentas?</legend>
+      <p class="dica">Pode marcar mais de uma</p>
+      <div class="categorias">
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="chats-ia"><span class="cartao"><b>Chats de IA</b><small>ChatGPT, Claude, Gemini e outros</small></span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="programacao-ia"><span class="cartao"><b>Programação assistida por IA</b><small>Claude Code, Codex, Cursor, GitHub Copilot e outros</small></span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="agentes-pessoais"><span class="cartao"><b>Agentes pessoais</b><small>Claude Cowork, Grok bot, OpenClaw, Hermes e outros</small></span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="automacao"><span class="cartao"><b>Automação</b><small>n8n, Make, Zapier e outros</small></span></label>
+      </div>
+      <div class="fichas"><label class="escolha"><input type="checkbox" name="ferramentas" value="nenhuma" id="f-nenhuma"><span class="ficha">Nenhuma destas</span></label></div>
     </fieldset>
 
     <label class="campo" for="f-origem"><span class="pergunta">Como ouviu falar do Urbiverso?<span class="opcional">Opcional</span></span>
       <input type="text" id="f-origem" name="origem" placeholder="Indicação de alguém, LinkedIn, evento…"></label>
-
-    <label class="campo" for="f-construir"><span class="pergunta">O que você quer construir?<span class="opcional">Opcional</span></span>
-      <textarea id="f-construir" name="construir"></textarea></label>
 
     <div class="envio">
       <button type="submit">Quero conhecer</button>
@@ -186,7 +171,9 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 const form=document.getElementById('form'), aviso=document.getElementById('aviso');
 /* "Nenhuma destas" desmarca as outras, e marcar outra desmarca "nenhuma" */
 const nenhuma=document.getElementById('f-nenhuma');
+const detalhe=document.getElementById('detalhe-ideia');
 form.addEventListener('change',e=>{
+  if(e.target.name==='ideia') detalhe.hidden=e.target.value!=='tem-ideia';
   if(e.target.name!=='ferramentas'||!e.target.checked) return;
   if(e.target===nenhuma) form.querySelectorAll('input[name=ferramentas]').forEach(i=>{if(i!==nenhuma)i.checked=false;});
   else nenhuma.checked=false;
