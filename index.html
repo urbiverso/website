@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Urbiverso</title>
 <meta name="description" content="Ajudamos empreendedores e empresas a construir soluções para a era da singularidade.">
-<link rel="icon" href="assets/vortice.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist+Mono:wght@400;500&display=swap">
@@ -30,29 +31,24 @@ a{color:inherit}
 main,header,footer{position:relative;z-index:1}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--apagado)}
 .env{max-width:1120px;margin:0 auto;padding-inline:20px}
-.palavra svg{display:block;height:100%;width:auto}
 
 .topo{position:fixed;inset:0 0 auto 0;z-index:5;padding-top:env(safe-area-inset-top,0px);
   background:linear-gradient(var(--espaco) 20%,transparent)}
 .topo .env{display:flex;justify-content:space-between;align-items:center;height:60px}
-.topo .marca{display:flex;align-items:center;gap:10px;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .5s}
+.topo .marca{display:flex;align-items:center;gap:12px;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .5s}
 .topo.mostra .marca{opacity:1;pointer-events:auto}
-.topo .marca .simbolo{width:22px;height:22px}
-.topo .marca .simbolo svg{width:100%;height:100%;display:block}
-.topo .marca .palavra{height:16px}
+.topo .marca .simbolo{width:28px;height:28px;display:block}
+.topo .marca .palavra{height:15px;width:auto;display:block}
 .topo nav{display:flex;gap:18px;align-items:center}
 @media (max-width:640px){.topo .tag{display:none}}
 
 /* Entrada: só a marca */
-.intro{position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:clamp(24px,4.5vh,44px);padding:80px 20px 110px}
-.simbolo-grande{position:relative;width:min(56vmin,400px);aspect-ratio:1;animation:chega 1.6s cubic-bezier(.2,.7,0,1) both}
-.simbolo-grande::before{content:"";position:absolute;inset:-26%;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(42,169,224,.17),rgba(154,43,121,.08) 55%,transparent);animation:respira 7s ease-in-out infinite}
-.vortice{position:relative;width:100%;height:100%;will-change:transform}
-.vortice svg{width:100%;height:100%;display:block}
-.intro .palavra{height:clamp(34px,6.2vw,62px);animation:chega 1.2s .45s cubic-bezier(.2,.7,0,1) both}
+.intro{--s:min(36vh,46vw,340px);position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:calc(var(--s)*.232);padding:80px 20px 110px}
+.simbolo-grande{width:var(--s);aspect-ratio:1;animation:chega 1.6s cubic-bezier(.2,.7,0,1) both}
+.vortice{width:100%;height:100%;will-change:transform}
+.vortice img{width:100%;height:100%;display:block}
+.intro .palavra{display:block;height:calc(var(--s)*.36);width:auto;animation:chega 1.2s .45s cubic-bezier(.2,.7,0,1) both}
 @keyframes chega{from{opacity:0;transform:translateY(14px) scale(.96)}}
-@keyframes respira{50%{transform:scale(1.07);opacity:.65}}
 .role{position:absolute;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:grid;justify-items:center;gap:10px}
 .role i{position:relative;display:block;width:1px;height:38px;overflow:hidden;background:linear-gradient(transparent,rgba(255,255,255,.25))}
 .role i::after{content:"";position:absolute;left:-1px;top:-10px;width:3px;height:10px;border-radius:2px;background:var(--laranja);animation:desce 2.4s ease-in-out infinite}
@@ -78,8 +74,8 @@ main,header,footer{position:relative;z-index:1}
 .acende .p.on{opacity:1}
 .apoio{margin:22px 0 0;max-width:44ch;color:var(--apagado);font-size:18px}
 
-/* 01 · o ciclo do fluxo encurta */
-.orbita{display:block;width:100%;max-width:440px;aspect-ratio:1;justify-self:center}
+/* 01 · fluxograma com o brilho percorrendo */
+.fluxo{display:block;width:100%;max-width:460px;aspect-ratio:1;justify-self:center}
 
 /* 02 · letreiro da infraestrutura */
 .letreiro{display:grid;gap:4px;overflow:hidden;
@@ -108,7 +104,7 @@ footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe
 footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){
-  .nebulosa,.simbolo-grande,.simbolo-grande::before,.intro .palavra,.role i::after,.faixa{animation:none}
+  .nebulosa,.simbolo-grande,.intro .palavra,.role i::after,.faixa{animation:none}
   .acende .p{opacity:1}
   .js .revela{opacity:1;transform:none;transition:none}
   .escala{height:auto}
@@ -121,14 +117,14 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <div class="nebulosa" aria-hidden="true"></div>
 
 <header class="topo" id="topo"><div class="env">
-  <a class="marca" href="#" aria-label="Urbiverso, voltar ao início"><span class="simbolo" id="mini"></span><span class="palavra"></span></a>
+  <a class="marca" href="#" aria-label="Urbiverso, voltar ao início"><img class="simbolo" src="assets/simbolo.webp" alt=""><img class="palavra" src="assets/palavra.svg" alt=""></a>
   <nav class="mono"><span class="tag">Rascunho</span><a href="conhecer/">Quero conhecer</a></nav>
 </div></header>
 
 <main>
 <section class="intro">
-  <div class="simbolo-grande"><div class="vortice" id="vortice" role="img" aria-label="Símbolo da Urbiverso girando"></div></div>
-  <div class="palavra" role="img" aria-label="urbiverso"></div>
+  <div class="simbolo-grande"><div class="vortice" id="vortice"><img src="assets/simbolo.webp" alt="Símbolo da Urbiverso" fetchpriority="high"></div></div>
+  <img class="palavra" src="assets/palavra.svg" alt="urbiverso">
   <div class="role mono" aria-hidden="true"><span>Role</span><i></i></div>
 </section>
 
@@ -144,7 +140,7 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <h2 class="titulo acende">Na era da singularidade, fluxos que levavam semanas precisam rodar em milissegundos, e quem não migrar vai ficar para trás.</h2>
     <p class="apoio">A IA qualifica o trabalho das pessoas; o desafio é redesenhar a organização (estruturas, processos, organogramas) em torno disso.</p>
   </div>
-  <canvas class="orbita" id="orbita" role="img" aria-label="Animação: o ciclo de um fluxo encurta de semanas para milissegundos"></canvas>
+  <canvas class="fluxo" id="fluxo" role="img" aria-label="Animação: um fluxograma de processo de empresa; o brilho que percorre o processo passa de semanas a milissegundos"></canvas>
 </div></section>
 
 <section class="capitulo" id="c2"><div class="env bloco">
@@ -174,7 +170,7 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <canvas id="rede" aria-hidden="true"></canvas>
     <div class="env"><div class="texto">
       <div class="rotulo mono"><span class="n">03</span><span>Escala</span></div>
-      <h2 class="titulo acende">Do primeiro cliente em diante: infraestrutura e segurança para crescer.</h2>
+      <h2 class="titulo acende">Tornamos a sua ideia escalável desde o primeiro cliente</h2>
     </div></div>
   </div>
 </section>
@@ -219,10 +215,7 @@ function desenharCeu(t){
 }
 semear(); addEventListener('resize',semear);
 
-/* Marca: vórtice e palavra vêm dos SVGs da identidade */
 const vortice=document.getElementById('vortice'), topo=document.getElementById('topo');
-fetch('assets/vortice.svg').then(r=>r.text()).then(svg=>{vortice.innerHTML=svg;document.getElementById('mini').innerHTML=svg;});
-fetch('assets/palavra.svg').then(r=>r.text()).then(svg=>document.querySelectorAll('.palavra').forEach(e=>e.innerHTML=svg));
 
 /* A frase principal e o botão aparecem ao entrar na tela */
 const revelar=[...document.querySelectorAll('.revela')];
@@ -251,14 +244,47 @@ const itensInfra=[...document.querySelectorAll('#itens-infra li')].map(li=>li.te
   f.innerHTML=copia+copia; document.getElementById('letreiro').appendChild(f);
 });
 
-/* 01 · o ciclo de um fluxo: a volta que levava semanas encurta até milissegundos conforme a rolagem */
-const orb=document.getElementById('orbita'), oc=orb.getContext('2d');
-let OW=0;
-function medirOrbita(){const d=Math.min(devicePixelRatio||1,2);OW=orb.clientWidth;orb.width=orb.height=Math.round(OW*d);oc.setTransform(d,0,0,d,0,0);}
-medirOrbita(); addEventListener('resize',medirOrbita);
-if('letterSpacing' in oc) oc.letterSpacing='1.5px';
-const ETAPAS=7, luz=new Float32Array(ETAPAS);
-let cabeca=-Math.PI/2;
+/* 01 · fluxograma de um processo de empresa. Um brilho percorre o processo de ponta a ponta;
+   conforme a rolagem, a volta que levava semanas passa a levar milissegundos. */
+const flx=document.getElementById('fluxo'), fc=flx.getContext('2d');
+let FW=0;
+function medirFluxo(){const d=Math.min(devicePixelRatio||1,2);FW=flx.clientWidth;flx.width=flx.height=Math.round(FW*d);fc.setTransform(d,0,0,d,0,0);}
+medirFluxo(); addEventListener('resize',medirFluxo);
+// etapas em coordenadas de 0 a 1: centro, largura e altura
+const ETAPA={
+  inicio:     {x:.17,y:.13,w:.2, h:.075,forma:'pilula', rotulo:'Início'},
+  pedido:     {x:.5, y:.13,w:.24,h:.09, forma:'caixa',  rotulo:'Pedido'},
+  analise:    {x:.83,y:.13,w:.24,h:.09, forma:'caixa',  rotulo:'Análise'},
+  aprovado:   {x:.83,y:.39,w:.27,h:.15, forma:'losango',rotulo:'Aprovado?'},
+  ajuste:     {x:.5, y:.39,w:.2, h:.09, forma:'caixa',  rotulo:'Ajuste'},
+  execucao:   {x:.83,y:.65,w:.24,h:.09, forma:'caixa',  rotulo:'Execução'},
+  faturamento:{x:.5, y:.65,w:.26,h:.09, forma:'caixa',  rotulo:'Faturamento'},
+  entrega:    {x:.17,y:.65,w:.24,h:.09, forma:'caixa',  rotulo:'Entrega'},
+  fim:        {x:.17,y:.87,w:.2, h:.075,forma:'pilula', rotulo:'Fim'},
+};
+const borda=(n,lado)=>{const e=ETAPA[n];return {d:[e.x+e.w/2,e.y],e:[e.x-e.w/2,e.y],c:[e.x,e.y-e.h/2],b:[e.x,e.y+e.h/2]}[lado];};
+const LIGACOES=[
+  ['inicio','d','pedido','e'],
+  ['pedido','d','analise','e'],
+  ['analise','b','aprovado','c'],
+  ['aprovado','e','ajuste','d','não'],
+  ['ajuste','c','pedido','b'],
+  ['aprovado','b','execucao','c','sim'],
+  ['execucao','e','faturamento','d'],
+  ['faturamento','e','entrega','d'],
+  ['entrega','b','fim','c'],
+].map(([de,ld,para,lp,rotulo])=>({de,para,a:borda(de,ld),b:borda(para,lp),rotulo,luz:0}));
+const ligacao=(de,para)=>LIGACOES.find(l=>l.de===de&&l.para===para);
+// o brilho anda de centro a centro; a cada três voltas, uma passa pelo ajuste
+const trajeto=nomes=>{const p=nomes.map(n=>[ETAPA[n].x,ETAPA[n].y]),acum=[0];
+  for(let i=1;i<p.length;i++) acum.push(acum[i-1]+Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]));
+  return {nomes,p,acum,total:acum[acum.length-1]};};
+const DIRETO=trajeto(['inicio','pedido','analise','aprovado','execucao','faturamento','entrega','fim']);
+const COM_AJUSTE=trajeto(['inicio','pedido','analise','aprovado','ajuste','pedido','analise','aprovado','execucao','faturamento','entrega','fim']);
+const pontoEm=(t,d)=>{d=clamp(d,0,t.total);let i=1;while(i<t.acum.length-1&&t.acum[i]<d)i++;
+  const k=(d-t.acum[i-1])/((t.acum[i]-t.acum[i-1])||1);return [lerp(t.p[i-1][0],t.p[i][0],k),lerp(t.p[i-1][1],t.p[i][1],k)];};
+let atual=DIRETO, andado=0, voltas=0;
+const luzEtapa=Object.fromEntries(Object.keys(ETAPA).map(k=>[k,0]));
 const SEMANA=6.048e8, DIA=8.64e7, HORA=3.6e6, MINUTO=6e4, SEGUNDO=1e3;
 function duracao(ms){
   if(ms>=2*SEMANA) return [Math.round(ms/SEMANA),'semanas'];
@@ -268,45 +294,81 @@ function duracao(ms){
   if(ms>=SEGUNDO){const n=Math.round(ms/SEGUNDO);return [n,n>1?'segundos':'segundo'];}
   return [Math.round(ms),'milissegundos'];
 }
-function orbita(dt){
-  const r=orb.getBoundingClientRect(); if(foraDaTela(r)) return;
+function contorno(n,x,y,w,h){
+  fc.beginPath();
+  if(n.forma==='losango'){fc.moveTo(x,y-h/2);fc.lineTo(x+w/2,y);fc.lineTo(x,y+h/2);fc.lineTo(x-w/2,y);fc.closePath();return;}
+  const r=n.forma==='pilula'?h/2:6, x0=x-w/2, y0=y-h/2;
+  fc.moveTo(x0+r,y0);fc.arcTo(x0+w,y0,x0+w,y0+h,r);fc.arcTo(x0+w,y0+h,x0,y0+h,r);fc.arcTo(x0,y0+h,x0,y0,r);fc.arcTo(x0,y0,x0+w,y0,r);fc.closePath();
+}
+function fluxo(dt){
+  const r=flx.getBoundingClientRect(); if(foraDaTela(r)) return;
   const e=suave(reduz?1:clamp((innerHeight*.9-r.top)/(innerHeight*.55+r.height/2)));
   const ms=Math.pow(10,lerp(Math.log10(3*SEMANA),Math.log10(40),e));
-  const w=6.283/(9000*Math.pow(10,-2.4*e));        // velocidade na tela, rad/ms
-  const passo=reduz?0:w*dt, antes=cabeca;
-  cabeca-=passo;                                       // anti-horário
-  for(let i=0;i<ETAPAS;i++){
-    const ang=-Math.PI/2+i*6.283/ETAPAS, falta=((antes-ang)%6.283+6.283)%6.283;
-    if(reduz||passo>=6.283||falta<=passo) luz[i]=1; else luz[i]*=Math.exp(-dt/700);
+  const vel=DIRETO.total/(7000*Math.pow(10,-1.5*e));   // na tela: de 7 s a uns 0,2 s por volta
+  const rastro=lerp(.06,.5,e);
+  for(const k in luzEtapa) luzEtapa[k]*=Math.exp(-dt/450);
+  for(const l of LIGACOES) l.luz*=Math.exp(-dt/600);
+  if(!reduz){
+    const antes=andado; andado+=vel*dt;
+    atual.acum.forEach((d,i)=>{
+      if(d>antes&&d<=andado) luzEtapa[atual.nomes[i]]=1;
+      if(i&&atual.acum[i-1]<andado&&d>antes) ligacao(atual.nomes[i-1],atual.nomes[i]).luz=1;   // a ligação acende enquanto o brilho passa por ela
+    });
+    if(andado>atual.total+rastro){voltas++; atual=voltas%3===2?COM_AJUSTE:DIRETO; andado=0; luzEtapa.inicio=1;}
   }
-  const c=OW/2, R=OW*.36, ws=w*1000, L=Math.min(6.283,.5+ws*.12), cheio=clamp((ws-15)/30);
-  oc.clearRect(0,0,OW,OW);
-  oc.lineWidth=1; oc.strokeStyle='rgba(255,255,255,.1)'; oc.beginPath(); oc.arc(c,c,R,0,6.283); oc.stroke();
-  if(cheio>0){oc.lineWidth=9; oc.strokeStyle=`rgba(42,169,224,${(.12*cheio).toFixed(3)})`; oc.beginPath(); oc.arc(c,c,R,0,6.283); oc.stroke();}
-  oc.lineWidth=2.2; oc.lineCap='round';
-  for(let k=0,seg=48;k<seg;k++){                       // o rastro fica atrás da cabeça
-    const a=lerp(1-k/seg,1,cheio)*.9;
-    oc.strokeStyle=`rgba(42,169,224,${a.toFixed(3)})`;
-    oc.beginPath(); oc.arc(c,c,R,cabeca+L*k/seg,cabeca+L*(k+1)/seg); oc.stroke();
+  const S=FW, X=v=>v*S, fonte=Math.max(9,S*.026);
+  fc.clearRect(0,0,S,S);
+  // ligações, com ponta de seta
+  fc.font=`500 ${fonte.toFixed(1)}px "Geist Mono", ui-monospace, monospace`;
+  if('letterSpacing' in fc) fc.letterSpacing='1px';
+  for(const {a,b,rotulo,luz} of LIGACOES){
+    const ax=X(a[0]), ay=X(a[1]), bx=X(b[0]), by=X(b[1]), ang=Math.atan2(by-ay,bx-ax), t=6, l=reduz?0:luz;
+    const cor=`rgba(${Math.round(lerp(255,42,l))},${Math.round(lerp(255,169,l))},${Math.round(lerp(255,224,l))},${(.22+.6*l).toFixed(3)})`;
+    if(l>.02){fc.lineWidth=5; fc.strokeStyle=`rgba(42,169,224,${(.16*l).toFixed(3)})`; fc.beginPath(); fc.moveTo(ax,ay); fc.lineTo(bx,by); fc.stroke();}
+    fc.lineWidth=1; fc.strokeStyle=cor; fc.beginPath(); fc.moveTo(ax,ay); fc.lineTo(bx,by); fc.stroke();
+    fc.fillStyle=cor; fc.beginPath(); fc.moveTo(bx,by); fc.lineTo(bx-t*Math.cos(ang-.45),by-t*Math.sin(ang-.45)); fc.lineTo(bx-t*Math.cos(ang+.45),by-t*Math.sin(ang+.45)); fc.closePath(); fc.fill();
+    if(rotulo){
+      const horizontal=Math.abs(by-ay)<1;
+      fc.textAlign=horizontal?'center':'left'; fc.textBaseline=horizontal?'bottom':'middle';
+      fc.fillStyle='#8A89A0'; fc.fillText(rotulo.toUpperCase(),horizontal?(ax+bx)/2:ax+8,horizontal?ay-5:(ay+by)/2);
+    }
   }
-  for(let i=0;i<ETAPAS;i++){
-    const ang=-Math.PI/2+i*6.283/ETAPAS, x=c+R*Math.cos(ang), y=c+R*Math.sin(ang), l=luz[i];
-    oc.beginPath(); oc.arc(x,y,5.5,0,6.283); oc.fillStyle='#03030A'; oc.fill();
-    oc.lineWidth=1.2; oc.strokeStyle=`rgba(255,255,255,${(.3+.7*l).toFixed(2)})`; oc.stroke();
-    if(l>.02){oc.beginPath(); oc.arc(x,y,3.2,0,6.283); oc.fillStyle=`rgba(247,161,17,${l.toFixed(2)})`; oc.fill();}
+  // o brilho: rastro atrás da cabeça; dentro das etapas ele some e a etapa acende
+  if(!reduz){
+    const ini=Math.max(0,andado-rastro), fim=Math.min(andado,atual.total);
+    fc.lineCap='round';
+    for(let k=0,seg=36;k<seg&&fim>ini;k++){
+      const [x0,y0]=pontoEm(atual,lerp(ini,fim,k/seg)), [x1,y1]=pontoEm(atual,lerp(ini,fim,(k+1)/seg)), a=(k+1)/seg;
+      fc.strokeStyle=`rgba(42,169,224,${(a*.25).toFixed(3)})`; fc.lineWidth=4+a*5;
+      fc.beginPath(); fc.moveTo(X(x0),X(y0)); fc.lineTo(X(x1),X(y1)); fc.stroke();
+      fc.strokeStyle=`rgba(${Math.round(lerp(42,220,a*a))},${Math.round(lerp(169,240,a*a))},255,${(a*.95).toFixed(3)})`; fc.lineWidth=1+a*1.8;
+      fc.beginPath(); fc.moveTo(X(x0),X(y0)); fc.lineTo(X(x1),X(y1)); fc.stroke();
+    }
+    if(andado<=atual.total){
+      const [hx,hy]=pontoEm(atual,andado), g=fc.createRadialGradient(X(hx),X(hy),0,X(hx),X(hy),12);
+      g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(.3,'rgba(42,169,224,.6)'); g.addColorStop(1,'rgba(42,169,224,0)');
+      fc.fillStyle=g; fc.beginPath(); fc.arc(X(hx),X(hy),12,0,6.283); fc.fill();
+    }
   }
-  const ha=1-clamp((ws-20)/40);
-  if(ha>0){
-    const hx=c+R*Math.cos(cabeca), hy=c+R*Math.sin(cabeca), g=oc.createRadialGradient(hx,hy,0,hx,hy,14);
-    g.addColorStop(0,`rgba(255,255,255,${ha})`); g.addColorStop(.3,`rgba(42,169,224,${.6*ha})`); g.addColorStop(1,'rgba(42,169,224,0)');
-    oc.fillStyle=g; oc.beginPath(); oc.arc(hx,hy,14,0,6.283); oc.fill();
+  // etapas
+  fc.textAlign='center'; fc.textBaseline='middle'; fc.lineWidth=1.2;
+  for(const k in ETAPA){
+    const n=ETAPA[k], l=reduz?.5:luzEtapa[k], x=X(n.x), y=X(n.y);
+    contorno(n,x,y,X(n.w),X(n.h));
+    fc.fillStyle='#07071A'; fc.fill();
+    if(l>.01){fc.fillStyle=`rgba(247,161,17,${(.12*l).toFixed(3)})`; fc.fill();}
+    fc.strokeStyle=`rgba(${Math.round(lerp(255,247,l))},${Math.round(lerp(255,161,l))},${Math.round(lerp(255,17,l))},${(.3+.7*l).toFixed(3)})`; fc.stroke();
+    fc.fillStyle=`rgba(238,237,242,${(.55+.45*l).toFixed(3)})`; fc.fillText(n.rotulo.toUpperCase(),x,y+.5);
   }
-  const [n,u]=duracao(ms);
-  oc.textAlign='center'; oc.textBaseline='alphabetic';
-  if('fontStretch' in oc) oc.fontStretch='condensed';
-  oc.fillStyle='#EEEDF2'; oc.font=`600 ${Math.round(OW*.17)}px Archivo, system-ui, sans-serif`; oc.fillText(String(n),c,c+OW*.04);
-  if('fontStretch' in oc) oc.fontStretch='normal';
-  oc.fillStyle='#8A89A0'; oc.font=`500 ${Math.round(OW*.034)}px "Geist Mono", ui-monospace, monospace`; oc.fillText(u.toUpperCase(),c,c+OW*.11);
+  // quanto leva uma volta
+  const [q,u]=duracao(ms);
+  fc.textAlign='right'; fc.textBaseline='alphabetic';
+  if('letterSpacing' in fc) fc.letterSpacing='0px';
+  if('fontStretch' in fc) fc.fontStretch='condensed';
+  fc.fillStyle='#EEEDF2'; fc.font=`600 ${Math.round(S*.11)}px Archivo, system-ui, sans-serif`; fc.fillText(String(q),X(.95),X(.9));
+  if('fontStretch' in fc) fc.fontStretch='normal';
+  if('letterSpacing' in fc) fc.letterSpacing='1.5px';
+  fc.fillStyle='#8A89A0'; fc.font=`500 ${fonte.toFixed(1)}px "Geist Mono", ui-monospace, monospace`; fc.fillText(u.toUpperCase(),X(.95),X(.955));
 }
 
 /* 03 · escala: um ponto se liga aos vizinhos, a rede cresce, a câmera se afasta, inclina,
@@ -452,7 +514,7 @@ function laco(t){
     giroCeu+=dt*.00004+rolou*.00025;                 // céu: bem mais devagar, no mesmo sentido
   }
   topo.classList.toggle('mostra',scrollY>innerHeight*.55);
-  desenharCeu(t); acender(); orbita(dt); galaxia(dt);
+  desenharCeu(t); acender(); fluxo(dt); galaxia(dt);
   requestAnimationFrame(laco);
 }
 requestAnimationFrame(laco);
