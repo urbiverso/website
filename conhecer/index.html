@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
-<!-- Rascunho: formulário ainda não ligado ao app de leads. -->
+<!-- O formulário envia para a URL de entrada de uma campanha do app de leads no hub. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -104,8 +104,14 @@ input:focus,textarea:focus{outline:none;border-color:var(--azul)}
 .envio button{font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:14px 24px;cursor:pointer}
 .envio button:hover{background:#fff}
 .nota{margin:0;max-width:60ch;font-size:13px;line-height:1.5;color:var(--apagado)}
+.envio button:disabled{opacity:.6;cursor:progress}
 .aviso{font-family:var(--mono);font-size:12px;color:var(--verde);min-height:1.2em}
 .aviso.erro{color:var(--laranja)}
+.sucesso{padding:22px 22px 24px;border:1px solid rgba(19,169,141,.55);border-radius:10px;background:rgba(19,169,141,.07)}
+.sucesso h2{margin:0 0 8px;font-weight:700;font-stretch:84%;font-size:26px;line-height:1.15}
+.sucesso h2:focus{outline:none}
+.sucesso p{margin:0;color:var(--apagado)}
+.sucesso b{color:var(--texto);font-weight:600;overflow-wrap:anywhere}
 footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
 footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){.surge{animation:none}}
@@ -119,7 +125,7 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <main><div class="env">
   <h1>Quer conhecer mais?</h1>
-  <p class="chamada">Estamos abrindo a infraestrutura do Urbiverso para um grupo seleto de parceiros, antes de disponibilizá-la ao público. Preencha o formulário e entraremos em contato para avaliar, junto com você, se somos a solução certa para fazer o seu negócio crescer.</p>
+  <p class="chamada" id="chamada">Estamos abrindo a infraestrutura do Urbiverso para um grupo seleto de parceiros, antes de disponibilizá-la ao público. Preencha o formulário e entraremos em contato para avaliar, junto com você, se somos a solução certa para fazer o seu negócio crescer.</p>
 
   <form id="form" novalidate>
     <fieldset>
@@ -133,10 +139,10 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     </fieldset>
 
     <div class="campos">
-      <label class="campo" for="f-nome"><span>Nome</span><input type="text" id="f-nome" name="nome" autocomplete="name" required></label>
-      <label class="campo" for="f-email"><span>E-mail</span><input type="email" id="f-email" name="email" autocomplete="email" required></label>
-      <label class="campo" for="f-empresa"><span>Empresa ou organização<span class="opcional">Opcional</span></span><input type="text" id="f-empresa" name="empresa" autocomplete="organization"></label>
-      <label class="campo" for="f-telefone"><span>Telefone<span class="opcional">Opcional</span></span><input type="tel" id="f-telefone" name="telefone" autocomplete="tel" inputmode="tel"></label>
+      <label class="campo" for="f-nome"><span>Nome</span><input type="text" id="f-nome" name="nome" autocomplete="name" maxlength="200" required></label>
+      <label class="campo" for="f-email"><span>E-mail</span><input type="email" id="f-email" name="email" autocomplete="email" maxlength="254" required></label>
+      <label class="campo" for="f-empresa"><span>Empresa ou organização<span class="opcional">Opcional</span></span><input type="text" id="f-empresa" name="empresa" autocomplete="organization" maxlength="200"></label>
+      <label class="campo" for="f-telefone"><span>Telefone<span class="opcional">Opcional</span></span><input type="tel" id="f-telefone" name="telefone" autocomplete="tel" inputmode="tel" maxlength="40"></label>
     </div>
 
     <fieldset>
@@ -159,7 +165,7 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       </div>
       <div class="detalhe" id="so-com-ideia" hidden>
         <p class="preambulo">Se você nos explicar, mais ou menos, o que está imaginando, isso pode nos ajudar a saber se o Urbiverso é a solução ideal para você. Mas fique à vontade para não adiantar nada, se não quiser.</p>
-        <label class="campo" for="f-construir"><span class="pergunta">O que você quer construir?</span><textarea id="f-construir" name="construir"></textarea></label>
+        <label class="campo" for="f-construir"><span class="pergunta">O que você quer construir?</span><textarea id="f-construir" name="construir" maxlength="5000"></textarea></label>
       </div>
     </fieldset>
 
@@ -173,10 +179,10 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     </fieldset>
 
     <label class="campo" for="f-uso-ia" id="so-empresa" hidden><span class="pergunta">Descreva como as pessoas utilizam inteligência artificial no seu ambiente de trabalho.<span class="opcional">Opcional</span></span>
-      <textarea id="f-uso-ia" name="uso_ia"></textarea></label>
+      <textarea id="f-uso-ia" name="uso_ia" maxlength="5000"></textarea></label>
 
     <label class="campo" for="f-origem"><span class="pergunta">Como ouviu falar do Urbiverso?<span class="opcional">Opcional</span></span>
-      <input type="text" id="f-origem" name="origem" placeholder="Indicação de alguém, LinkedIn, evento…"></label>
+      <input type="text" id="f-origem" name="origem" maxlength="500" placeholder="Indicação de alguém, LinkedIn, evento…"></label>
 
     <div class="envio">
       <button type="submit">Quero conhecer</button>
@@ -184,6 +190,11 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <div class="aviso" id="aviso" role="status"></div>
     </div>
   </form>
+
+  <div class="sucesso" id="sucesso" hidden>
+    <h2 tabindex="-1">Recebemos o seu cadastro.</h2>
+    <p>Enviamos um e-mail para <b id="sucesso-email"></b> com um link para confirmar o endereço. Se não chegar em alguns minutos, confira a caixa de spam.</p>
+  </div>
 </div></main>
 
 <footer><div class="env mono"><span>© 2026 Urbiverso Ltda</span><span>urbiverso.com.br</span></div></footer>
@@ -218,15 +229,58 @@ regua.addEventListener('input',marcarNivel);
 regua.addEventListener('change',marcarNivel);
 nivel.querySelectorAll('.marcas button').forEach(b=>b.addEventListener('click',()=>{regua.value=b.dataset.v;marcarNivel();}));
 
-/* Ainda não ligado: vai fazer POST no webhook do app de leads (sem o nível, se a régua não foi tocada; sem as condicionais escondidas) */
-form.addEventListener('submit',e=>{
+/* Envio: POST na URL de entrada da campanha (app de leads no hub). A app guarda nome, e-mail e uma lista
+   de pares pergunta/resposta; as perguntas saem do próprio formulário, e as condicionais escondidas não vão. */
+const ENTRADA='https://hub.urbiverso.com.br/api/wh/funil_leads/wh_04571d1ef798584466c722c3a30daf92618a09a1cad6b65e24aa68df79cf9285';
+const texto=el=>el?el.textContent.replace(/\s+/g,' ').trim():'';
+const semOpcional=el=>{const c=el.cloneNode(true);c.querySelectorAll('.opcional').forEach(o=>o.remove());return texto(c);};
+const legenda=nome=>texto(form.querySelector(`input[name="${nome}"]`).closest('fieldset').querySelector('legend'));
+const rotulo=id=>semOpcional(form.querySelector(`label[for="${id}"] > span`));
+const escolha=nome=>{const i=form.querySelector(`input[name="${nome}"]:checked`);if(!i) return '';const l=i.closest('label');return texto(l.querySelector('b'))||texto(l);};
+const visivel=el=>!el.closest('[hidden]');
+function respostas(){
+  const r=[], add=(pergunta,resposta)=>{resposta=(resposta||'').trim();if(resposta) r.push({pergunta,resposta});};
+  add(legenda('perfil'),escolha('perfil'));
+  add(rotulo('f-empresa'),form.empresa.value);
+  add(rotulo('f-telefone'),form.telefone.value);
+  add(legenda('tamanho'),escolha('tamanho'));
+  add(legenda('ideia'),escolha('ideia'));
+  if(visivel(form.construir)) add(rotulo('f-construir'),form.construir.value);
+  if(nivel.classList.contains('tocado')) add(legenda('nivel'),NIVEIS[regua.value][0]);
+  if(visivel(form.uso_ia)) add(rotulo('f-uso-ia'),form.uso_ia.value);
+  add(rotulo('f-origem'),form.origem.value);
+  return r;
+}
+const botao=form.querySelector('.envio button');
+const avisar=(msg,erro)=>{aviso.classList.toggle('erro',!!erro);aviso.textContent=msg;};
+let enviando=false;
+form.addEventListener('submit',async e=>{
   e.preventDefault();
+  if(enviando) return;
   const falta=[];
   if(!form.perfil.value) falta.push('qual opção descreve você');
   if(!form.nome.value.trim()) falta.push('o nome');
   if(!form.email.checkValidity()||!form.email.value.trim()) falta.push('um e-mail válido');
-  aviso.classList.toggle('erro',falta.length>0);
-  aviso.textContent=falta.length?`Falta preencher ${falta.join(', ')}.`:'O formulário ainda não está ligado. Em breve.';
+  if(falta.length){avisar(`Falta preencher ${falta.join(', ')}.`,true);return;}
+  enviando=true; botao.disabled=true; botao.textContent='Enviando…'; avisar('');
+  try{
+    const r=await fetch(ENTRADA,{method:'POST',mode:'cors',credentials:'omit',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({nome:form.nome.value.trim(),email:form.email.value.trim(),respostas:respostas()})});
+    if(r.ok){
+      document.getElementById('sucesso-email').textContent=form.email.value.trim();
+      form.hidden=true; document.getElementById('chamada').hidden=true;
+      const ok=document.getElementById('sucesso'); ok.hidden=false; ok.querySelector('h2').focus();
+      return;
+    }
+    avisar(r.status===422?'Algum dado não passou na conferência. Confira o e-mail e o tamanho dos textos.'
+      :r.status===429?'Muitas tentativas seguidas. Tente de novo daqui a pouco.'
+      :r.status===404?'O cadastro está fechado no momento.'
+      :'Não conseguimos enviar agora. Tente de novo em instantes.',true);
+  }catch{
+    avisar('Não conseguimos enviar agora. Confira a sua conexão e tente de novo.',true);
+  }finally{
+    enviando=false; botao.disabled=false; botao.textContent='Quero conhecer';
+  }
 });
 </script>
 </body>
