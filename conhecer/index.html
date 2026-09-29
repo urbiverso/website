@@ -231,7 +231,7 @@ nivel.querySelectorAll('.marcas button').forEach(b=>b.addEventListener('click',(
 
 /* Envio: POST na URL de entrada da campanha (app de leads no hub). A app guarda nome, e-mail e uma lista
    de pares pergunta/resposta; as perguntas saem do próprio formulário, e as condicionais escondidas não vão. */
-const ENTRADA='https://hub.urbiverso.com.br/api/wh/funil_leads/wh_04571d1ef798584466c722c3a30daf92618a09a1cad6b65e24aa68df79cf9285';
+const ENTRADA='https://hub.urbiverso.com.br/api/wh/funil_leads/wh_3aaf168c54f472aafc284c6cfe3df4c37f3b3d5c87e8aff4d0d81599af49b3b3';
 const texto=el=>el?el.textContent.replace(/\s+/g,' ').trim():'';
 const semOpcional=el=>{const c=el.cloneNode(true);c.querySelectorAll('.opcional').forEach(o=>o.remove());return texto(c);};
 const legenda=nome=>texto(form.querySelector(`input[name="${nome}"]`).closest('fieldset').querySelector('legend'));
