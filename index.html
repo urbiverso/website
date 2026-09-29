@@ -39,6 +39,8 @@ main,header,footer{position:relative;z-index:1}
 .topo .marca .simbolo{width:28px;height:28px;display:block}
 .topo .marca .palavra{height:15px;width:auto;display:block}
 .topo nav{display:flex;gap:18px;align-items:center}
+/* Em tela estreita os dois links não cabem ao lado da marca: "Trabalhe conosco" fica só no rodapé */
+@media (max-width:479px){.topo nav a[href^="trabalhe"]{display:none}}
 
 /* Entrada: só a marca */
 .intro{--s:min(36vh,46vw,340px);position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:calc(var(--s)*.232);padding:80px 20px 110px}
@@ -100,6 +102,7 @@ main,header,footer{position:relative;z-index:1}
 
 footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
 footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer .links{display:flex;gap:24px;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){
   .nebulosa,.simbolo-grande,.intro .palavra,.role,.faixa{animation:none}
@@ -116,7 +119,7 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <header class="topo" id="topo"><div class="env">
   <a class="marca" href="#" aria-label="Urbiverso, voltar ao início"><img class="simbolo" src="assets/simbolo.webp" alt=""><img class="palavra" src="assets/palavra.svg" alt=""></a>
-  <nav class="mono"><a href="conhecer/">Quero conhecer</a></nav>
+  <nav class="mono"><a href="trabalhe-conosco/">Trabalhe conosco</a><a href="conhecer/">Quero conhecer</a></nav>
 </div></header>
 
 <main>
@@ -179,7 +182,7 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </div></section>
 </main>
 
-<footer><div class="env mono"><span>© 2026 Urbiverso Ltda</span><span>urbiverso.com.br</span></div></footer>
+<footer><div class="env mono"><span>© 2026 Urbiverso Ltda</span><span class="links"><a href="trabalhe-conosco/">Trabalhe conosco</a><span>urbiverso.com.br</span></span></div></footer>
 
 <script>
 document.documentElement.classList.add('js');
