@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
-<!-- Rascunho: as perguntas do formulário ainda vão ser definidas. -->
+<!-- Rascunho: formulário ainda não ligado ao app de leads. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,7 +14,7 @@
 <style>
 :root{
   color-scheme: dark;
-  --espaco:#03030A; --texto:#EEEDF2; --apagado:#8A89A0; --linha:rgba(255,255,255,.09);
+  --espaco:#03030A; --texto:#EEEDF2; --apagado:#8A89A0; --linha:rgba(255,255,255,.1); --campo:rgba(10,10,28,.7);
   --azul:#2AA9E0; --verde:#13A98D; --laranja:#F7A111;
   --sans:"Archivo",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
 }
@@ -31,17 +31,55 @@ a{color:inherit}
 .marca{display:flex;align-items:center;gap:12px;text-decoration:none}
 .marca .simbolo{width:28px;height:28px;display:block}
 .marca .palavra{height:15px;width:auto;display:block}
-main{flex:1;padding-block:clamp(48px,12vh,120px) 72px}
-main .env{max-width:680px}
-h1{margin:0 0 36px;font-weight:700;font-stretch:80%;font-size:clamp(34px,5vw,60px);line-height:1.04;letter-spacing:-.01em}
-form{display:grid;gap:16px}
-label{display:grid;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
-input,textarea{font:inherit;font-family:var(--sans);font-size:16px;text-transform:none;letter-spacing:0;color:var(--texto);background:rgba(10,10,28,.7);border:1px solid var(--linha);border-radius:8px;padding:12px 14px;width:100%}
-textarea{min-height:130px;resize:vertical}
+main{flex:1;padding-block:clamp(40px,10vh,110px) 80px}
+main .env{max-width:720px}
+h1{margin:0 0 18px;font-weight:700;font-stretch:80%;font-size:clamp(34px,5vw,60px);line-height:1.04;letter-spacing:-.01em}
+.chamada{margin:0 0 44px;max-width:56ch;color:var(--apagado);font-size:18px}
+
+form{display:grid;gap:34px}
+fieldset{margin:0;padding:0;border:0;min-width:0}
+legend,.pergunta{display:block;padding:0;margin:0 0 14px;font-weight:600;font-size:18px;line-height:1.35;color:var(--texto)}
+.opcional{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado);font-weight:400;margin-left:8px}
+.campos{display:grid;gap:16px}
+@media (min-width:640px){.campos{grid-template-columns:1fr 1fr}}
+.campo{display:grid;gap:6px}
+.campo>span{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+.campo>span.pergunta{font-family:var(--sans);font-size:18px;letter-spacing:0;text-transform:none;color:var(--texto);margin-bottom:8px}
+input[type=text],input[type=email],textarea{font:inherit;font-family:var(--sans);font-size:16px;color:var(--texto);background:var(--campo);border:1px solid var(--linha);border-radius:8px;padding:12px 14px;width:100%}
+textarea{min-height:120px;resize:vertical}
 input:focus,textarea:focus{outline:none;border-color:var(--azul)}
-button{justify-self:start;font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:13px 22px;cursor:pointer}
+::placeholder{color:#5d5c72}
+
+/* escolhas: o input nativo fica por baixo (acessível pelo teclado); o cartão mostra o estado */
+.escolha{position:relative;display:block;cursor:pointer}
+.escolha input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.escolha:has(input:focus-visible){outline:2px solid var(--laranja);outline-offset:3px;border-radius:10px}
+.perfis{display:grid;gap:12px}
+@media (min-width:640px){.perfis{grid-template-columns:1fr 1fr}}
+.cartao{display:grid;gap:6px;height:100%;padding:18px 18px 20px;border:1px solid var(--linha);border-radius:10px;background:var(--campo);transition:border-color .2s,background .2s}
+.cartao b{font-weight:600;font-size:18px;line-height:1.25}
+.cartao small{font-size:15px;line-height:1.45;color:var(--apagado)}
+.escolha:hover .cartao{border-color:rgba(255,255,255,.22)}
+.escolha:has(input:checked) .cartao{border-color:var(--laranja);background:rgba(247,161,17,.07)}
+.lista{display:grid;gap:10px}
+.lista .cartao{padding:13px 16px;grid-template-columns:18px 1fr;align-items:center;gap:12px}
+.lista .cartao::before{content:"";width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.35);transition:border-color .2s}
+.lista .escolha:has(input:checked) .cartao::before{border-color:var(--laranja);background:radial-gradient(circle,var(--laranja) 0 4px,transparent 4.5px)}
+.lista .cartao span{font-size:16px;line-height:1.4}
+.fichas{display:flex;flex-wrap:wrap;gap:8px}
+.ficha{display:block;padding:8px 14px;border:1px solid var(--linha);border-radius:999px;background:var(--campo);font-size:15px;line-height:1.3;transition:border-color .2s,background .2s,color .2s}
+.escolha:hover .ficha{border-color:rgba(255,255,255,.22)}
+.escolha:has(input:checked) .ficha{border-color:var(--laranja);background:rgba(247,161,17,.1);color:#fff}
+.grupo{display:grid;gap:8px;margin-bottom:16px}
+.grupo:last-child{margin-bottom:0}
+.grupo>.mono{font-size:11px}
+
+.envio{display:grid;gap:14px;justify-items:start}
+button{font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:14px 24px;cursor:pointer}
 button:hover{background:#fff}
+.nota{margin:0;max-width:60ch;font-size:13px;line-height:1.5;color:var(--apagado)}
 .aviso{font-family:var(--mono);font-size:12px;color:var(--verde);min-height:1.2em}
+.aviso.erro{color:var(--laranja)}
 footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
 footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </style>
@@ -54,22 +92,114 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <main><div class="env">
   <h1>Quer conhecer mais?</h1>
+  <p class="chamada">Estamos abrindo a infraestrutura do Urbiverso para um grupo seleto de parceiros, antes de disponibilizá-la ao público. Preencha o formulário e entraremos em contato para avaliar, junto com você, se somos a solução certa para fazer o seu negócio crescer.</p>
+
   <form id="form" novalidate>
-    <label for="f-nome">Nome<input id="f-nome" name="nome" autocomplete="name" required></label>
-    <label for="f-email">E-mail<input id="f-email" name="email" type="email" autocomplete="email" required></label>
-    <label for="f-ideia">O que você quer construir?<textarea id="f-ideia" name="ideia" required></textarea></label>
-    <button type="submit">Quero conhecer</button>
-    <div class="aviso" id="aviso" role="status"></div>
+    <fieldset>
+      <legend>Qual é o seu caso?</legend>
+      <div class="perfis">
+        <label class="escolha"><input type="radio" name="perfil" value="empreendedor" required>
+          <span class="cartao"><b>Sou empreendedor</b><small>Tenho uma ideia e quero colocá-la no mundo.</small></span></label>
+        <label class="escolha"><input type="radio" name="perfil" value="empresa">
+          <span class="cartao"><b>Trabalho numa empresa</b><small>Quero ajudar a migrar os nossos processos para a era da IA.</small></span></label>
+      </div>
+    </fieldset>
+
+    <div class="campos">
+      <label class="campo" for="f-nome"><span>Nome</span><input type="text" id="f-nome" name="nome" autocomplete="name" required></label>
+      <label class="campo" for="f-email"><span>E-mail</span><input type="email" id="f-email" name="email" autocomplete="email" required></label>
+    </div>
+
+    <fieldset>
+      <legend>Qual o tamanho da sua organização?</legend>
+      <div class="fichas">
+        <label class="escolha"><input type="radio" name="tamanho" value="1"><span class="ficha">Só eu</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-5"><span class="ficha">Até 5 pessoas</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-20"><span class="ficha">Até 20</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-60"><span class="ficha">Até 60</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-100"><span class="ficha">Até 100</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="mais-100"><span class="ficha">Mais de 100</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Você já tem uma ideia que gostaria de transformar em solução?</legend>
+      <div class="lista">
+        <label class="escolha"><input type="radio" name="ideia" value="tem-ideia"><span class="cartao"><span>Tenho uma ideia (ou várias) que quero oferecer no mercado</span></span></label>
+        <label class="escolha"><input type="radio" name="ideia" value="conhecer"><span class="cartao"><span>Quero apenas conhecer mais</span></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Quais destas você usa todos os dias?</legend>
+      <div class="grupo"><span class="mono">Conversa</span><div class="fichas" data-grupo>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="chatgpt"><span class="ficha">ChatGPT</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="claude"><span class="ficha">Claude</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="gemini"><span class="ficha">Gemini</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="grok"><span class="ficha">Grok</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="microsoft-copilot"><span class="ficha">Microsoft Copilot</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="perplexity"><span class="ficha">Perplexity</span></label>
+      </div></div>
+      <div class="grupo"><span class="mono">Programação</span><div class="fichas">
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="claude-code"><span class="ficha">Claude Code</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="codex"><span class="ficha">Codex</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="cursor"><span class="ficha">Cursor</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="github-copilot"><span class="ficha">GitHub Copilot</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="lovable"><span class="ficha">Lovable</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="replit"><span class="ficha">Replit</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="bolt"><span class="ficha">Bolt</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="v0"><span class="ficha">v0</span></label>
+      </div></div>
+      <div class="grupo"><span class="mono">Agentes</span><div class="fichas">
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="claude-cowork"><span class="ficha">Claude Cowork</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="openclaw"><span class="ficha">Agentes OpenClaw</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="hermes"><span class="ficha">Agentes Hermes</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="manus"><span class="ficha">Manus</span></label>
+      </div></div>
+      <div class="grupo"><span class="mono">Automação</span><div class="fichas">
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="n8n"><span class="ficha">n8n</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="make"><span class="ficha">Make</span></label>
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="zapier"><span class="ficha">Zapier</span></label>
+      </div></div>
+      <div class="grupo"><div class="fichas">
+        <label class="escolha"><input type="checkbox" name="ferramentas" value="nenhuma" id="f-nenhuma"><span class="ficha">Nenhuma destas</span></label>
+      </div></div>
+    </fieldset>
+
+    <label class="campo" for="f-origem"><span class="pergunta">Como ouviu falar do Urbiverso?<span class="opcional">Opcional</span></span>
+      <input type="text" id="f-origem" name="origem" placeholder="Indicação de alguém, LinkedIn, evento…"></label>
+
+    <label class="campo" for="f-construir"><span class="pergunta">O que você quer construir?<span class="opcional">Opcional</span></span>
+      <textarea id="f-construir" name="construir"></textarea></label>
+
+    <div class="envio">
+      <button type="submit">Quero conhecer</button>
+      <p class="nota">Usamos estes dados só para entrar em contato com você sobre o Urbiverso.</p>
+      <div class="aviso" id="aviso" role="status"></div>
+    </div>
   </form>
 </div></main>
 
 <footer><div class="env mono"><span>© 2026 Urbiverso Ltda</span><span>urbiverso.com.br</span></div></footer>
 
 <script>
+const form=document.getElementById('form'), aviso=document.getElementById('aviso');
+/* "Nenhuma destas" desmarca as outras, e marcar outra desmarca "nenhuma" */
+const nenhuma=document.getElementById('f-nenhuma');
+form.addEventListener('change',e=>{
+  if(e.target.name!=='ferramentas'||!e.target.checked) return;
+  if(e.target===nenhuma) form.querySelectorAll('input[name=ferramentas]').forEach(i=>{if(i!==nenhuma)i.checked=false;});
+  else nenhuma.checked=false;
+});
 /* Ainda não ligado: vai fazer POST no webhook do app de leads */
-document.getElementById('form').addEventListener('submit',e=>{
+form.addEventListener('submit',e=>{
   e.preventDefault();
-  document.getElementById('aviso').textContent='O formulário ainda não está ligado. Em breve.';
+  const falta=[];
+  if(!form.perfil.value) falta.push('o seu caso');
+  if(!form.nome.value.trim()) falta.push('o nome');
+  if(!form.email.checkValidity()||!form.email.value.trim()) falta.push('um e-mail válido');
+  aviso.classList.toggle('erro',falta.length>0);
+  aviso.textContent=falta.length?`Falta preencher ${falta.join(', ')}.`:'O formulário ainda não está ligado. Em breve.';
 });
 </script>
 </body>
