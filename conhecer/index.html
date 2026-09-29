@@ -19,6 +19,7 @@
   --sans:"Archivo",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
 }
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 html{background:var(--espaco)}
 body{margin:0;min-height:100svh;display:flex;flex-direction:column;color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
   background:radial-gradient(60% 45% at 80% 10%,rgba(26,26,85,.55),transparent 70%),radial-gradient(50% 40% at 10% 95%,rgba(154,43,121,.12),transparent 70%),var(--espaco)}
@@ -44,8 +45,9 @@ legend,.pergunta{display:block;padding:0;margin:0 0 14px;font-weight:600;font-si
 @media (min-width:640px){.campos{grid-template-columns:1fr 1fr}}
 .campo{display:grid;gap:6px}
 .campo>span{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+.campo>span .opcional{margin-left:6px;opacity:.75}
 .campo>span.pergunta{font-family:var(--sans);font-size:18px;letter-spacing:0;text-transform:none;color:var(--texto);margin-bottom:8px}
-input[type=text],input[type=email],textarea{font:inherit;font-family:var(--sans);font-size:16px;color:var(--texto);background:var(--campo);border:1px solid var(--linha);border-radius:8px;padding:12px 14px;width:100%}
+input[type=text],input[type=email],input[type=tel],textarea{font:inherit;font-family:var(--sans);font-size:16px;color:var(--texto);background:var(--campo);border:1px solid var(--linha);border-radius:8px;padding:12px 14px;width:100%}
 textarea{min-height:120px;resize:vertical}
 input:focus,textarea:focus{outline:none;border-color:var(--azul)}
 ::placeholder{color:#5d5c72}
@@ -70,26 +72,43 @@ input:focus,textarea:focus{outline:none;border-color:var(--azul)}
 .ficha{display:block;padding:8px 14px;border:1px solid var(--linha);border-radius:999px;background:var(--campo);font-size:15px;line-height:1.3;transition:border-color .2s,background .2s,color .2s}
 .escolha:hover .ficha{border-color:rgba(255,255,255,.22)}
 .escolha:has(input:checked) .ficha{border-color:var(--laranja);background:rgba(247,161,17,.1);color:#fff}
-.dica{margin:-8px 0 14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
-.categorias{display:grid;gap:12px;margin-bottom:12px}
-@media (min-width:640px){.categorias{grid-template-columns:1fr 1fr}}
-.categorias .cartao{position:relative;padding-right:46px}
-.categorias .cartao::after{content:"";position:absolute;top:16px;right:16px;width:18px;height:18px;border-radius:5px;border:1px solid rgba(255,255,255,.35);transition:background-color .2s,border-color .2s}
-.categorias .escolha:has(input:checked) .cartao::after{border-color:var(--laranja);background:var(--laranja) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.6 9.6 3.6' fill='none' stroke='%2303030A' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
+
+/* perguntas que só aparecem conforme uma resposta anterior */
 .detalhe{display:grid;gap:12px;margin-top:18px;padding-left:16px;border-left:2px solid rgba(247,161,17,.45)}
-.detalhe:not([hidden]){animation:aparece .45s ease both}
+.surge{animation:aparece .45s ease both}
 @keyframes aparece{from{opacity:0;transform:translateY(-6px)}}
 .preambulo{margin:0;max-width:56ch;color:var(--apagado);font-size:16px;line-height:1.5}
-@media (prefers-reduced-motion:reduce){.detalhe:not([hidden]){animation:none}}
+
+/* nível de conhecimento: régua de três posições; a descrição muda com ela */
+.nivel{display:grid;gap:6px;max-width:600px}
+.nivel input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;cursor:pointer;--pct:50%}
+.nivel input[type=range]:focus{outline:none}
+.nivel input[type=range]:focus-visible{outline:2px solid var(--laranja);outline-offset:4px;border-radius:6px}
+.nivel input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--laranja) var(--pct),rgba(255,255,255,.14) var(--pct))}
+.nivel input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;margin-top:-10px;border-radius:50%;background:var(--texto);border:5px solid var(--laranja);transition:border-color .2s}
+.nivel input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:rgba(255,255,255,.14)}
+.nivel input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:var(--laranja)}
+.nivel input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--texto);border:5px solid var(--laranja)}
+.nivel:not(.tocado) input[type=range]::-webkit-slider-runnable-track{background:rgba(255,255,255,.14)}
+.nivel:not(.tocado) input[type=range]::-webkit-slider-thumb{border-color:#4a4960}
+.nivel:not(.tocado) input[type=range]::-moz-range-progress{background:transparent}
+.nivel:not(.tocado) input[type=range]::-moz-range-thumb{border-color:#4a4960}
+.marcas{display:grid;grid-template-columns:repeat(3,1fr)}
+.marcas button{padding:4px 0;border:0;background:none;font:500 15px var(--sans);color:var(--apagado);cursor:pointer}
+.marcas button:nth-child(1){text-align:left} .marcas button:nth-child(3){text-align:right}
+.marcas button.atual{color:var(--texto)}
+.descricao{margin:8px 0 0;min-height:4.6em;padding:12px 14px;border:1px solid var(--linha);border-radius:8px;background:var(--campo);color:var(--apagado);font-size:15px;line-height:1.5}
+.descricao b{color:var(--texto);font-weight:600}
 
 .envio{display:grid;gap:14px;justify-items:start}
-button{font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:14px 24px;cursor:pointer}
-button:hover{background:#fff}
+.envio button{font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:14px 24px;cursor:pointer}
+.envio button:hover{background:#fff}
 .nota{margin:0;max-width:60ch;font-size:13px;line-height:1.5;color:var(--apagado)}
 .aviso{font-family:var(--mono);font-size:12px;color:var(--verde);min-height:1.2em}
 .aviso.erro{color:var(--laranja)}
 footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
 footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){.surge{animation:none}}
 </style>
 </head>
 <body>
@@ -104,10 +123,10 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
   <form id="form" novalidate>
     <fieldset>
-      <legend>Qual é o seu caso?</legend>
+      <legend>Qual destas descreve você melhor?</legend>
       <div class="perfis">
         <label class="escolha"><input type="radio" name="perfil" value="empreendedor" required>
-          <span class="cartao"><b>Sou empreendedor</b><small>Tenho uma ideia e quero colocá-la no mundo.</small></span></label>
+          <span class="cartao"><b>Sou empreendedor</b><small>Pretendo montar ou já estou montando um negócio.</small></span></label>
         <label class="escolha"><input type="radio" name="perfil" value="empresa">
           <span class="cartao"><b>Trabalho numa empresa</b><small>Quero ajudar a migrar os nossos processos para a era da IA.</small></span></label>
       </div>
@@ -116,6 +135,8 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="campos">
       <label class="campo" for="f-nome"><span>Nome</span><input type="text" id="f-nome" name="nome" autocomplete="name" required></label>
       <label class="campo" for="f-email"><span>E-mail</span><input type="email" id="f-email" name="email" autocomplete="email" required></label>
+      <label class="campo" for="f-empresa"><span>Empresa ou organização<span class="opcional">Opcional</span></span><input type="text" id="f-empresa" name="empresa" autocomplete="organization"></label>
+      <label class="campo" for="f-telefone"><span>Telefone<span class="opcional">Opcional</span></span><input type="tel" id="f-telefone" name="telefone" autocomplete="tel" inputmode="tel"></label>
     </div>
 
     <fieldset>
@@ -136,23 +157,23 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <label class="escolha"><input type="radio" name="ideia" value="tem-ideia"><span class="cartao"><span>Tenho uma ideia (ou várias) que quero oferecer no mercado</span></span></label>
         <label class="escolha"><input type="radio" name="ideia" value="conhecer"><span class="cartao"><span>Quero apenas conhecer mais</span></span></label>
       </div>
-      <div class="detalhe" id="detalhe-ideia" hidden>
+      <div class="detalhe" id="so-com-ideia" hidden>
         <p class="preambulo">Se você nos explicar, mais ou menos, o que está imaginando, isso pode nos ajudar a saber se o Urbiverso é a solução ideal para você. Mas fique à vontade para não adiantar nada, se não quiser.</p>
         <label class="campo" for="f-construir"><span class="pergunta">O que você quer construir?</span><textarea id="f-construir" name="construir"></textarea></label>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>Você tem familiaridade com quais destas ferramentas?</legend>
-      <p class="dica">Pode marcar mais de uma</p>
-      <div class="categorias">
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="chats-ia"><span class="cartao"><b>Chats de IA</b><small>ChatGPT, Claude, Gemini e outros</small></span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="programacao-ia"><span class="cartao"><b>Programação assistida por IA</b><small>Claude Code, Codex, Cursor, GitHub Copilot e outros</small></span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="agentes-pessoais"><span class="cartao"><b>Agentes pessoais</b><small>Claude Cowork, Grok bot, OpenClaw, Hermes e outros</small></span></label>
-        <label class="escolha"><input type="checkbox" name="ferramentas" value="automacao"><span class="cartao"><b>Automação</b><small>n8n, Make, Zapier e outros</small></span></label>
+      <legend>Qual você diria que é o seu nível de conhecimento sobre as ferramentas de inteligência artificial que existem hoje?</legend>
+      <div class="nivel" id="nivel">
+        <input type="range" id="f-nivel" name="nivel" min="1" max="3" step="1" value="2" aria-describedby="descricao-nivel">
+        <div class="marcas"><button type="button" tabindex="-1" data-v="1">Iniciante</button><button type="button" tabindex="-1" data-v="2">Explorador</button><button type="button" tabindex="-1" data-v="3">Avançado</button></div>
+        <p class="descricao" id="descricao-nivel" aria-live="polite">Arraste ou toque num nível.</p>
       </div>
-      <div class="fichas"><label class="escolha"><input type="checkbox" name="ferramentas" value="nenhuma" id="f-nenhuma"><span class="ficha">Nenhuma destas</span></label></div>
     </fieldset>
+
+    <label class="campo" for="f-uso-ia" id="so-empresa" hidden><span class="pergunta">Descreva como as pessoas utilizam inteligência artificial no seu ambiente de trabalho.<span class="opcional">Opcional</span></span>
+      <textarea id="f-uso-ia" name="uso_ia"></textarea></label>
 
     <label class="campo" for="f-origem"><span class="pergunta">Como ouviu falar do Urbiverso?<span class="opcional">Opcional</span></span>
       <input type="text" id="f-origem" name="origem" placeholder="Indicação de alguém, LinkedIn, evento…"></label>
@@ -169,20 +190,39 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <script>
 const form=document.getElementById('form'), aviso=document.getElementById('aviso');
-/* "Nenhuma destas" desmarca as outras, e marcar outra desmarca "nenhuma" */
-const nenhuma=document.getElementById('f-nenhuma');
-const detalhe=document.getElementById('detalhe-ideia');
+
+/* Perguntas condicionais: "o que quer construir" só com "tenho uma ideia"; "uso de IA no trabalho" só para quem trabalha numa empresa */
+const mostrar=(el,sim)=>{if(el.hidden===!sim) return; el.hidden=!sim; el.classList.toggle('surge',sim);};
+const soComIdeia=document.getElementById('so-com-ideia'), soEmpresa=document.getElementById('so-empresa');
 form.addEventListener('change',e=>{
-  if(e.target.name==='ideia') detalhe.hidden=e.target.value!=='tem-ideia';
-  if(e.target.name!=='ferramentas'||!e.target.checked) return;
-  if(e.target===nenhuma) form.querySelectorAll('input[name=ferramentas]').forEach(i=>{if(i!==nenhuma)i.checked=false;});
-  else nenhuma.checked=false;
+  if(e.target.name==='ideia') mostrar(soComIdeia,e.target.value==='tem-ideia');
+  if(e.target.name==='perfil') mostrar(soEmpresa,e.target.value==='empresa');
 });
-/* Ainda não ligado: vai fazer POST no webhook do app de leads */
+
+/* Nível de conhecimento: a régua começa sem resposta; a descrição acompanha a posição */
+const NIVEIS={
+  1:['Iniciante','Conheço muito pouco e ainda preciso aprender mais.'],
+  2:['Explorador','Tenho familiaridade com as ferramentas mais comuns, como ChatGPT e Claude, e talvez já tenha desenvolvido alguma solução com programação assistida por IA.'],
+  3:['Avançado','Conheço profundamente o tema e as soluções disponíveis no mercado, e já usei várias delas profissionalmente.'],
+};
+const nivel=document.getElementById('nivel'), regua=document.getElementById('f-nivel'), descricao=document.getElementById('descricao-nivel');
+function marcarNivel(){
+  const v=+regua.value, [nome,texto]=NIVEIS[v];
+  nivel.classList.add('tocado');
+  regua.style.setProperty('--pct',(v-1)*50+'%');
+  regua.setAttribute('aria-valuetext',nome);
+  descricao.innerHTML=`<b>${nome}.</b> ${texto}`;
+  nivel.querySelectorAll('.marcas button').forEach(b=>b.classList.toggle('atual',+b.dataset.v===v));
+}
+regua.addEventListener('input',marcarNivel);
+regua.addEventListener('change',marcarNivel);
+nivel.querySelectorAll('.marcas button').forEach(b=>b.addEventListener('click',()=>{regua.value=b.dataset.v;marcarNivel();}));
+
+/* Ainda não ligado: vai fazer POST no webhook do app de leads (sem o nível, se a régua não foi tocada; sem as condicionais escondidas) */
 form.addEventListener('submit',e=>{
   e.preventDefault();
   const falta=[];
-  if(!form.perfil.value) falta.push('o seu caso');
+  if(!form.perfil.value) falta.push('qual opção descreve você');
   if(!form.nome.value.trim()) falta.push('o nome');
   if(!form.email.checkValidity()||!form.email.value.trim()) falta.push('um e-mail válido');
   aviso.classList.toggle('erro',falta.length>0);

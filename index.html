@@ -49,10 +49,10 @@ main,header,footer{position:relative;z-index:1}
 .vortice img{width:100%;height:100%;display:block}
 .intro .palavra{display:block;height:calc(var(--s)*.36);width:auto;animation:chega 1.2s .45s cubic-bezier(.2,.7,0,1) both}
 @keyframes chega{from{opacity:0;transform:translateY(14px) scale(.96)}}
-.role{position:absolute;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:grid;justify-items:center;gap:10px}
-.role i{position:relative;display:block;width:1px;height:38px;overflow:hidden;background:linear-gradient(transparent,rgba(255,255,255,.25))}
-.role i::after{content:"";position:absolute;left:-1px;top:-10px;width:3px;height:10px;border-radius:2px;background:var(--laranja);animation:desce 2.4s ease-in-out infinite}
-@keyframes desce{to{top:38px}}
+.role{position:absolute;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));width:44px;height:44px;margin-left:-22px;display:grid;place-items:center;color:var(--apagado);animation:quica 2.4s ease-in-out infinite}
+.role:hover{color:var(--texto)}
+.role svg{width:26px;height:26px}
+@keyframes quica{50%{transform:translateY(7px)}}
 
 /* A frase principal, com tela própria */
 .abertura{min-height:92svh;display:grid;justify-items:center;align-content:center;text-align:center;gap:26px;padding:80px 20px}
@@ -104,7 +104,7 @@ footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe
 footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){
-  .nebulosa,.simbolo-grande,.intro .palavra,.role i::after,.faixa{animation:none}
+  .nebulosa,.simbolo-grande,.intro .palavra,.role,.faixa{animation:none}
   .acende .p{opacity:1}
   .js .revela{opacity:1;transform:none;transition:none}
   .escala{height:auto}
@@ -125,10 +125,10 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <section class="intro">
   <div class="simbolo-grande"><div class="vortice" id="vortice"><img src="assets/simbolo.webp" alt="Símbolo da Urbiverso" fetchpriority="high"></div></div>
   <img class="palavra" src="assets/palavra.svg" alt="urbiverso">
-  <div class="role mono" aria-hidden="true"><span>Role</span><i></i></div>
+  <a class="role" href="#frase" aria-label="Descer para o texto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15M5.5 12.5 12 19l6.5-6.5"/></svg></a>
 </section>
 
-<section class="abertura">
+<section class="abertura" id="frase">
   <h1 class="revela">Ajudamos empreendedores e empresas a construir soluções para a era da singularidade.</h1>
   <p class="revela" style="transition-delay:.12s">A infraestrutura que te permite surfar a onda da IA e escalar o seu negócio.</p>
   <a class="cta revela" style="transition-delay:.24s" href="conhecer/">Quero conhecer</a>
