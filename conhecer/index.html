@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<!-- Rascunho: as perguntas do formulário ainda vão ser definidas. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quero conhecer · Urbiverso</title>
+<meta name="description" content="Ajudamos empreendedores e empresas a construir soluções para a era da singularidade.">
+<link rel="icon" href="../assets/vortice.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --espaco:#03030A; --texto:#EEEDF2; --apagado:#8A89A0; --linha:rgba(255,255,255,.09);
+  --azul:#2AA9E0; --verde:#13A98D; --laranja:#F7A111;
+  --sans:"Archivo",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--espaco)}
+body{margin:0;min-height:100svh;display:flex;flex-direction:column;color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(60% 45% at 80% 10%,rgba(26,26,85,.55),transparent 70%),radial-gradient(50% 40% at 10% 95%,rgba(154,43,121,.12),transparent 70%),var(--espaco)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--laranja);outline-offset:3px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--apagado)}
+.env{width:100%;max-width:1120px;margin:0 auto;padding-inline:20px}
+.topo{padding-top:env(safe-area-inset-top,0px)}
+.topo .env{display:flex;justify-content:space-between;align-items:center;height:60px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marca .simbolo{width:22px;height:22px}
+.marca .simbolo svg{width:100%;height:100%;display:block}
+.marca .palavra{height:16px}
+.marca .palavra svg{height:100%;width:auto;display:block}
+main{flex:1;padding-block:clamp(48px,12vh,120px) 72px}
+main .env{max-width:680px}
+h1{margin:0 0 36px;font-weight:700;font-stretch:80%;font-size:clamp(34px,5vw,60px);line-height:1.04;letter-spacing:-.01em}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
+input,textarea{font:inherit;font-family:var(--sans);font-size:16px;text-transform:none;letter-spacing:0;color:var(--texto);background:rgba(10,10,28,.7);border:1px solid var(--linha);border-radius:8px;padding:12px 14px;width:100%}
+textarea{min-height:130px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--azul)}
+button{justify-self:start;font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:13px 22px;cursor:pointer}
+button:hover{background:#fff}
+.aviso{font-family:var(--mono);font-size:12px;color:var(--verde);min-height:1.2em}
+footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
+footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header class="topo"><div class="env">
+  <a class="marca" href="../" aria-label="Urbiverso, página inicial"><span class="simbolo" id="mini"></span><span class="palavra" id="palavra"></span></a>
+  <span class="mono">Rascunho</span>
+</div></header>
+
+<main><div class="env">
+  <h1>Quer conhecer mais?</h1>
+  <form id="form" novalidate>
+    <label for="f-nome">Nome<input id="f-nome" name="nome" autocomplete="name" required></label>
+    <label for="f-email">E-mail<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+    <label for="f-ideia">O que você quer construir?<textarea id="f-ideia" name="ideia" required></textarea></label>
+    <button type="submit">Quero conhecer</button>
+    <div class="aviso" id="aviso" role="status"></div>
+  </form>
+</div></main>
+
+<footer><div class="env mono"><span>© 2026 Urbiverso Ltda</span><span>urbiverso.com.br</span></div></footer>
+
+<script>
+fetch('../assets/vortice.svg').then(r=>r.text()).then(svg=>document.getElementById('mini').innerHTML=svg);
+fetch('../assets/palavra.svg').then(r=>r.text()).then(svg=>document.getElementById('palavra').innerHTML=svg);
+/* Ainda não ligado: vai fazer POST no webhook do app de leads */
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  document.getElementById('aviso').textContent='O formulário ainda não está ligado. Em breve.';
+});
+</script>
+</body>
+</html>

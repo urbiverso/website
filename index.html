@@ -23,80 +23,94 @@ body{margin:0;background:var(--espaco);color:var(--texto);font-family:var(--sans
 a{color:inherit}
 :focus-visible{outline:2px solid var(--laranja);outline-offset:3px}
 #ceu{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.nebulosa{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(60% 45% at 75% 20%,rgba(26,26,85,.55),transparent 70%),radial-gradient(50% 40% at 15% 85%,rgba(154,43,121,.12),transparent 70%)}
+.nebulosa{position:fixed;inset:-35%;z-index:0;pointer-events:none;
+  background:radial-gradient(35% 26% at 65% 32%,rgba(26,26,85,.55),transparent 70%),radial-gradient(29% 24% at 29% 70%,rgba(154,43,121,.13),transparent 70%),radial-gradient(22% 18% at 55% 56%,rgba(42,169,224,.05),transparent 70%);
+  animation:gira-nebulosa 240s linear infinite}
+@keyframes gira-nebulosa{to{transform:rotate(-360deg)}}
 main,header,footer{position:relative;z-index:1}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--apagado)}
 .env{max-width:1120px;margin:0 auto;padding-inline:20px}
+.palavra svg{display:block;height:100%;width:auto}
 
 .topo{position:fixed;inset:0 0 auto 0;z-index:5;padding-top:env(safe-area-inset-top,0px);
   background:linear-gradient(var(--espaco) 20%,transparent)}
 .topo .env{display:flex;justify-content:space-between;align-items:center;height:60px}
-.topo .marca{font-weight:600;font-stretch:112%;font-size:18px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
-.topo .marca svg{width:22px;height:22px}
+.topo .marca{display:flex;align-items:center;gap:10px;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .5s}
+.topo.mostra .marca{opacity:1;pointer-events:auto}
+.topo .marca .simbolo{width:22px;height:22px}
+.topo .marca .simbolo svg{width:100%;height:100%;display:block}
+.topo .marca .palavra{height:16px}
 .topo nav{display:flex;gap:18px;align-items:center}
 @media (max-width:640px){.topo .tag{display:none}}
 
-/* Abertura */
-.abertura{min-height:100svh;display:grid;align-content:center;justify-items:center;text-align:center;gap:28px;padding:96px 20px 64px}
-.vortice{width:min(58vmin,420px);aspect-ratio:1;will-change:transform}
+/* Entrada: só a marca */
+.intro{position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:clamp(24px,4.5vh,44px);padding:80px 20px 110px}
+.simbolo-grande{position:relative;width:min(56vmin,400px);aspect-ratio:1;animation:chega 1.6s cubic-bezier(.2,.7,0,1) both}
+.simbolo-grande::before{content:"";position:absolute;inset:-26%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(42,169,224,.17),rgba(154,43,121,.08) 55%,transparent);animation:respira 7s ease-in-out infinite}
+.vortice{position:relative;width:100%;height:100%;will-change:transform}
 .vortice svg{width:100%;height:100%;display:block}
-.abertura h1{margin:0;max-width:18ch;font-weight:700;font-stretch:78%;font-size:clamp(38px,6vw,80px);line-height:.98;letter-spacing:-.01em;text-wrap:balance}
+.intro .palavra{height:clamp(34px,6.2vw,62px);animation:chega 1.2s .45s cubic-bezier(.2,.7,0,1) both}
+@keyframes chega{from{opacity:0;transform:translateY(14px) scale(.96)}}
+@keyframes respira{50%{transform:scale(1.07);opacity:.65}}
+.role{position:absolute;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:grid;justify-items:center;gap:10px}
+.role i{position:relative;display:block;width:1px;height:38px;overflow:hidden;background:linear-gradient(transparent,rgba(255,255,255,.25))}
+.role i::after{content:"";position:absolute;left:-1px;top:-10px;width:3px;height:10px;border-radius:2px;background:var(--laranja);animation:desce 2.4s ease-in-out infinite}
+@keyframes desce{to{top:38px}}
+
+/* A frase principal, com tela própria */
+.abertura{min-height:92svh;display:grid;justify-items:center;align-content:center;text-align:center;gap:26px;padding:80px 20px}
+.abertura h1{margin:0;max-width:19ch;font-weight:700;font-stretch:78%;font-size:clamp(36px,5.2vw,74px);line-height:1;letter-spacing:-.01em;text-wrap:balance}
 .abertura p{margin:0;max-width:44ch;color:var(--apagado);font-size:clamp(17px,1.6vw,20px)}
-
-/* Capítulos */
-.capitulo{padding-block:18vh 12vh;border-top:1px solid var(--linha)}
-.rotulo{display:flex;gap:14px;align-items:center;margin-bottom:28px}
-.rotulo .n{color:var(--laranja)}
-.capitulo h2{margin:0 0 22px;max-width:20ch;font-weight:700;font-stretch:80%;font-size:clamp(34px,5vw,64px);line-height:1.02;letter-spacing:-.01em;text-wrap:balance}
-.capitulo .corpo{max-width:58ch;color:var(--apagado);font-size:18px}
-.capitulo .corpo p{margin:0 0 16px}
-.capitulo .corpo strong{color:var(--texto);font-weight:500}
-
-/* 1 · texto que acende */
-.acende{margin:0 0 28px;max-width:24ch;font-size:clamp(28px,4.2vw,54px);line-height:1.14;font-weight:500;font-stretch:90%;letter-spacing:-.01em;text-wrap:balance}
-.acende .p{opacity:.18;transition:opacity .35s linear}
-.acende .p.on{opacity:1}
 .cta{display:inline-block;font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border-radius:8px;padding:13px 22px;text-decoration:none}
 .cta:hover{background:#fff}
+.js .revela{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,0,1)}
+.js .revela.on{opacity:1;transform:none}
 
-/* 2 · letreiro da infraestrutura */
-.letreiro{margin-top:34px;display:grid;gap:10px;overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+/* Blocos: texto à esquerda, visual à direita (empilham no celular) */
+.capitulo{padding-block:clamp(64px,11vh,120px);border-top:1px solid var(--linha)}
+.bloco{display:grid;gap:44px;align-items:center}
+@media (min-width:900px){.bloco{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px}}
+.rotulo{display:flex;gap:14px;align-items:center;margin-bottom:24px}
+.rotulo .n{color:var(--laranja)}
+.titulo{margin:0;max-width:22ch;font-weight:600;font-stretch:84%;font-size:clamp(28px,3.5vw,48px);line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.acende .p{opacity:.2;transition:opacity .35s linear}
+.acende .p.on{opacity:1}
+.apoio{margin:22px 0 0;max-width:44ch;color:var(--apagado);font-size:18px}
+
+/* 01 · o ciclo do fluxo encurta */
+.orbita{display:block;width:100%;max-width:440px;aspect-ratio:1;justify-self:center}
+
+/* 02 · letreiro da infraestrutura */
+.letreiro{display:grid;gap:4px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+@media (max-width:899px){.letreiro{margin-inline:-20px}}
 .faixa{display:flex;width:max-content;animation:corre var(--dur,60s) linear infinite}
 .faixa.volta{animation-direction:reverse}
-.faixa span{white-space:nowrap;font-weight:600;font-stretch:80%;font-size:clamp(26px,4.4vw,56px);line-height:1.15;letter-spacing:-.01em;padding-right:.55em}
-.faixa span::after{content:"✦";color:var(--laranja);font-size:.4em;vertical-align:.45em;padding-left:.55em}
+.faixa span{white-space:nowrap;font-weight:600;font-stretch:80%;font-size:clamp(24px,2.6vw,36px);line-height:1.3;letter-spacing:-.01em;padding-right:.5em}
+.faixa span::after{content:"✦";color:var(--laranja);font-size:.42em;vertical-align:.4em;padding-left:.5em}
 .faixa.apagada span{color:var(--apagado)}
 @keyframes corre{to{transform:translateX(-50%)}}
-.so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
-/* 3 · escala: grafo que vira galáxia */
-.escala{position:relative;height:320vh;border-top:1px solid var(--linha)}
+/* 03 · escala: rede que vira galáxia */
+.escala{position:relative;height:280vh;border-top:1px solid var(--linha)}
 .palco{position:sticky;top:0;height:100svh;overflow:hidden}
-#galaxia{position:absolute;inset:0;width:100%;height:100%}
-.palco .env{position:relative;padding-top:88px}
-.palco h2{margin:0;max-width:18ch;font-weight:700;font-stretch:80%;font-size:clamp(30px,4.6vw,58px);line-height:1.04;letter-spacing:-.01em;text-wrap:balance}
+.palco canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.palco .env{position:relative;height:100%;display:grid;align-content:start;padding-top:96px;pointer-events:none}
+@media (min-width:900px){.palco .env{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px;align-content:center;padding-top:0}}
 
-/* 4 · formulário */
-form{display:grid;gap:14px;max-width:640px;margin-top:8px}
-.duas{display:grid;gap:14px}
-@media (min-width:640px){.duas{grid-template-columns:1fr 1fr}}
-label{display:grid;gap:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--apagado)}
-input,textarea{font:inherit;font-family:var(--sans);font-size:16px;text-transform:none;letter-spacing:0;color:var(--texto);background:rgba(10,10,28,.7);border:1px solid var(--linha);border-radius:8px;padding:12px 14px;width:100%}
-textarea{min-height:110px;resize:vertical}
-input:focus,textarea:focus{outline:none;border-color:var(--azul)}
-button{justify-self:start;font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border:0;border-radius:8px;padding:13px 22px;cursor:pointer}
-button:hover{background:#fff}
-.aviso{font-family:var(--mono);font-size:12px;color:var(--verde);min-height:1.2em}
+/* Fecho */
+.final{padding-block:clamp(72px,13vh,140px);border-top:1px solid var(--linha);text-align:center}
+.final h2{margin:0 0 28px;font-weight:700;font-stretch:80%;font-size:clamp(32px,4.6vw,60px);line-height:1.04;letter-spacing:-.01em}
 
 footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
 footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 @media (prefers-reduced-motion:reduce){
+  .nebulosa,.simbolo-grande,.simbolo-grande::before,.intro .palavra,.role i::after,.faixa{animation:none}
   .acende .p{opacity:1}
-  .faixa{animation:none;width:auto;flex-wrap:wrap}
-  .faixa span:nth-child(n+7){display:none}
+  .js .revela{opacity:1;transform:none;transition:none}
   .escala{height:auto}
   .palco{position:relative}
 }
@@ -106,58 +120,68 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <canvas id="ceu" aria-hidden="true"></canvas>
 <div class="nebulosa" aria-hidden="true"></div>
 
-<header class="topo"><div class="env">
-  <span class="marca"><span id="mini" aria-hidden="true"></span>urbiverso</span>
-  <nav class="mono"><span class="tag">Rascunho</span><a href="#lista">Quero conhecer</a></nav>
+<header class="topo" id="topo"><div class="env">
+  <a class="marca" href="#" aria-label="Urbiverso, voltar ao início"><span class="simbolo" id="mini"></span><span class="palavra"></span></a>
+  <nav class="mono"><span class="tag">Rascunho</span><a href="conhecer/">Quero conhecer</a></nav>
 </div></header>
 
 <main>
-<section class="abertura">
-  <div class="vortice" id="vortice" role="img" aria-label="Símbolo da Urbiverso girando"></div>
-  <h1>Ajudamos empreendedores e empresas a construir soluções para a era da singularidade.</h1>
-  <p>A infraestrutura que te permite surfar a onda da IA e escalar o seu negócio.</p>
-  <a class="cta" href="#lista">Quero conhecer</a>
+<section class="intro">
+  <div class="simbolo-grande"><div class="vortice" id="vortice" role="img" aria-label="Símbolo da Urbiverso girando"></div></div>
+  <div class="palavra" role="img" aria-label="urbiverso"></div>
+  <div class="role mono" aria-hidden="true"><span>Role</span><i></i></div>
 </section>
 
-<section class="capitulo" id="c1"><div class="env">
-  <div class="rotulo mono"><span class="n">01</span><span>A virada</span></div>
-  <p class="acende" id="acende">Na era da singularidade, fluxos que levavam semanas precisam rodar em milissegundos, e quem não migrar vai ficar para trás.</p>
-  <div class="corpo"><p>A IA qualifica o trabalho das pessoas; o desafio é redesenhar a organização (estruturas, processos, organogramas) em torno disso.</p></div>
+<section class="abertura">
+  <h1 class="revela">Ajudamos empreendedores e empresas a construir soluções para a era da singularidade.</h1>
+  <p class="revela" style="transition-delay:.12s">A infraestrutura que te permite surfar a onda da IA e escalar o seu negócio.</p>
+  <a class="cta revela" style="transition-delay:.24s" href="conhecer/">Quero conhecer</a>
+</section>
+
+<section class="capitulo" id="c1"><div class="env bloco">
+  <div>
+    <div class="rotulo mono"><span class="n">01</span><span>A virada</span></div>
+    <h2 class="titulo acende">Na era da singularidade, fluxos que levavam semanas precisam rodar em milissegundos, e quem não migrar vai ficar para trás.</h2>
+    <p class="apoio">A IA qualifica o trabalho das pessoas; o desafio é redesenhar a organização (estruturas, processos, organogramas) em torno disso.</p>
+  </div>
+  <canvas class="orbita" id="orbita" role="img" aria-label="Animação: o ciclo de um fluxo encurta de semanas para milissegundos"></canvas>
 </div></section>
 
-<section class="capitulo" id="c2"><div class="env">
-  <div class="rotulo mono"><span class="n">02</span><span>Infraestrutura pronta</span></div>
-  <h2>Seu produto nasce sobre uma estrutura completa, já embarcada.</h2>
-  <ul class="so-leitor"><li>Usuários e permissões para pessoas e agentes</li><li>Banco com dados separados por cliente</li><li>Trilha de auditoria imutável</li><li>Correção e evolução em tempo real por agentes</li><li>IA embutida: documentos, classificação, áudio</li><li>Integrações e Slack</li><li>E-mail no seu domínio</li><li>Tarefas agendadas</li><li>Páginas e formulários públicos</li><li>Atualizações sem parar o sistema</li><li>Sua marca em tudo</li></ul>
-</div>
-  <div class="letreiro" aria-hidden="true">
-    <div class="faixa" style="--dur:70s"><span>Usuários e permissões para pessoas e agentes</span><span>Banco com dados separados por cliente</span><span>Trilha de auditoria imutável</span><span>Correção e evolução em tempo real por agentes</span><span>IA embutida: documentos, classificação, áudio</span><span>Integrações e Slack</span><span>Usuários e permissões para pessoas e agentes</span><span>Banco com dados separados por cliente</span><span>Trilha de auditoria imutável</span><span>Correção e evolução em tempo real por agentes</span><span>IA embutida: documentos, classificação, áudio</span><span>Integrações e Slack</span></div>
-    <div class="faixa volta apagada" style="--dur:60s"><span>E-mail no seu domínio</span><span>Tarefas agendadas</span><span>Páginas e formulários públicos</span><span>Atualizações sem parar o sistema</span><span>Sua marca em tudo</span><span>E-mail no seu domínio</span><span>Tarefas agendadas</span><span>Páginas e formulários públicos</span><span>Atualizações sem parar o sistema</span><span>Sua marca em tudo</span></div>
+<section class="capitulo" id="c2"><div class="env bloco">
+  <div>
+    <div class="rotulo mono"><span class="n">02</span><span>Infraestrutura pronta</span></div>
+    <h2 class="titulo acende">Seu produto nasce sobre uma estrutura completa, já embarcada.</h2>
+    <ul class="so-leitor" id="itens-infra">
+      <li>Usuários e permissões para pessoas e agentes</li>
+      <li>Banco com dados separados por cliente</li>
+      <li>Trilha de auditoria imutável</li>
+      <li>Correção e evolução em tempo real por agentes</li>
+      <li>IA embutida: documentos, classificação, áudio</li>
+      <li>Integrações e Slack</li>
+      <li>E-mail no seu domínio</li>
+      <li>Tarefas agendadas</li>
+      <li>Páginas e formulários públicos</li>
+      <li>Atualizações sem parar o sistema</li>
+      <li>Sua marca em tudo</li>
+    </ul>
   </div>
-</section>
+  <div class="letreiro" id="letreiro" aria-hidden="true"></div>
+</div></section>
 
 <section class="escala" id="c3">
   <div class="palco">
     <canvas id="galaxia" aria-hidden="true"></canvas>
-    <div class="env">
+    <canvas id="rede" aria-hidden="true"></canvas>
+    <div class="env"><div class="texto">
       <div class="rotulo mono"><span class="n">03</span><span>Escala</span></div>
-      <h2>Do primeiro cliente em diante: infraestrutura e segurança para crescer.</h2>
-    </div>
+      <h2 class="titulo acende">Do primeiro cliente em diante: infraestrutura e segurança para crescer.</h2>
+    </div></div>
   </div>
 </section>
 
-<section class="capitulo" id="lista"><div class="env">
-  <div class="rotulo mono"><span class="n">04</span><span>Contato</span></div>
+<section class="final"><div class="env">
   <h2>Quer conhecer mais?</h2>
-  <form id="form" novalidate>
-    <div class="duas">
-      <label for="f-nome">Nome<input id="f-nome" name="nome" autocomplete="name" required></label>
-      <label for="f-email">E-mail<input id="f-email" name="email" type="email" autocomplete="email" required></label>
-    </div>
-    <label for="f-ideia">O que você quer construir?<textarea id="f-ideia" name="ideia" required></textarea></label>
-    <button type="submit">Quero conhecer</button>
-    <div class="aviso" id="aviso" role="status"></div>
-  </form>
+  <a class="cta" href="conhecer/">Quero conhecer</a>
 </div></section>
 </main>
 
@@ -167,128 +191,271 @@ footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 document.documentElement.classList.add('js');
 const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const suave=t=>t*t*(3-2*t);
+const foraDaTela=r=>r.bottom<0||r.top>innerHeight;
+const aleatorio=s=>()=>(s=(s*16807)%2147483647)/2147483647;
 
-/* Céu: três camadas de estrelas, brilho lento, paralaxe leve na rolagem */
+/* Céu: as estrelas giram devagar em volta do centro, no sentido anti-horário (as de dentro mais rápido); rolar dá um empurrão */
 const ceu=document.getElementById('ceu'), cx=ceu.getContext('2d');
-let estrelas=[], W=0, H=0, dpr=1;
+let estrelas=[], W=0, H=0, giroCeu=0;
 function semear(){
-  dpr=Math.min(devicePixelRatio||1,2); W=innerWidth; H=innerHeight;
-  ceu.width=W*dpr; ceu.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
-  const n=Math.round(W*H/2600); let s=7;
-  const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647;};
-  estrelas=Array.from({length:n},()=>{const c=rnd();return {x:rnd()*W,y:rnd()*H*1.6,r:.3+rnd()*1.1,camada:c<.6?.05:c<.9?.12:.22,fase:rnd()*6.28,vel:.4+rnd()*1.2,cor:rnd()<.08?'247,161,17':rnd()<.1?'42,169,224':'255,255,255'};});
+  const dpr=Math.min(devicePixelRatio||1,2), novaLargura=innerWidth!==W;
+  W=innerWidth; H=innerHeight; ceu.width=W*dpr; ceu.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
+  if(!novaLargura) return;
+  const R=Math.hypot(W,H)/2*1.02, rnd=aleatorio(7);
+  estrelas=Array.from({length:Math.round(W*H/2300)},()=>{const rho=R*Math.sqrt(rnd());
+    return {rho,th:rnd()*6.283,k:.35+.65*(1-rho/R),r:.3+rnd()*1.1,fase:rnd()*6.28,vel:.4+rnd()*1.2,cor:rnd()<.08?'247,161,17':rnd()<.1?'42,169,224':'255,255,255'};});
 }
-function desenhar(t){
+function desenharCeu(t){
   cx.clearRect(0,0,W,H);
-  const y0=scrollY;
   for(const e of estrelas){
-    const y=((e.y-y0*e.camada)%(H*1.6)+H*1.6)%(H*1.6);
-    if(y>H) continue;
+    const th=e.th-giroCeu*e.k, x=W/2+e.rho*Math.cos(th), y=H/2+e.rho*Math.sin(th);
+    if(x<-2||y<-2||x>W+2||y>H+2) continue;
     const a=reduz?.7:.45+.45*Math.sin(t/1000*e.vel+e.fase);
     cx.fillStyle=`rgba(${e.cor},${a.toFixed(2)})`;
-    cx.beginPath();cx.arc(e.x,y,e.r,0,6.283);cx.fill();
+    cx.beginPath();cx.arc(x,y,e.r,0,6.283);cx.fill();
   }
 }
 semear(); addEventListener('resize',semear);
 
-/* Vórtice: gira no sentido anti-horário, devagar; a rolagem acrescenta giro */
-const vortice=document.getElementById('vortice');
+/* Marca: vórtice e palavra vêm dos SVGs da identidade */
+const vortice=document.getElementById('vortice'), topo=document.getElementById('topo');
 fetch('assets/vortice.svg').then(r=>r.text()).then(svg=>{vortice.innerHTML=svg;document.getElementById('mini').innerHTML=svg;});
+fetch('assets/palavra.svg').then(r=>r.text()).then(svg=>document.querySelectorAll('.palavra').forEach(e=>e.innerHTML=svg));
+
+/* A frase principal e o botão aparecem ao entrar na tela */
+const revelar=[...document.querySelectorAll('.revela')];
+if(reduz) revelar.forEach(e=>e.classList.add('on'));
+else{const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');o.unobserve(e.target);}}),{threshold:.3});revelar.forEach(e=>o.observe(e));}
+
+/* Títulos dos blocos acendem palavra por palavra conforme a leitura */
+const acesos=[...document.querySelectorAll('.acende')].map(el=>{
+  el.innerHTML=el.textContent.trim().split(/\s+/).map(w=>`<span class="p">${w}</span>`).join(' ');
+  return {el,ps:[...el.querySelectorAll('.p')]};
+});
+function acender(){
+  if(reduz) return;
+  for(const a of acesos){
+    const r=a.el.getBoundingClientRect(); if(foraDaTela(r)) continue;
+    const n=Math.round(clamp((innerHeight*.92-r.top)/(r.height+innerHeight*.25))*a.ps.length);
+    a.ps.forEach((w,i)=>w.classList.toggle('on',i<n));
+  }
+}
+
+/* 02 · letreiro: quatro faixas em sentidos alternados, montadas a partir da lista acessível */
+const itensInfra=[...document.querySelectorAll('#itens-infra li')].map(li=>li.textContent);
+[[0,3,70],[3,6,58],[6,9,64],[9,11,52]].forEach(([a,b,dur],i)=>{
+  const f=document.createElement('div'); f.className='faixa'+(i%2?' volta apagada':''); f.style.setProperty('--dur',dur+'s');
+  const copia=itensInfra.slice(a,b).concat(itensInfra.slice(a,b)).map(t=>`<span>${t}</span>`).join('');
+  f.innerHTML=copia+copia; document.getElementById('letreiro').appendChild(f);
+});
+
+/* 01 · o ciclo de um fluxo: a volta que levava semanas encurta até milissegundos conforme a rolagem */
+const orb=document.getElementById('orbita'), oc=orb.getContext('2d');
+let OW=0;
+function medirOrbita(){const d=Math.min(devicePixelRatio||1,2);OW=orb.clientWidth;orb.width=orb.height=Math.round(OW*d);oc.setTransform(d,0,0,d,0,0);}
+medirOrbita(); addEventListener('resize',medirOrbita);
+if('letterSpacing' in oc) oc.letterSpacing='1.5px';
+const ETAPAS=7, luz=new Float32Array(ETAPAS);
+let cabeca=-Math.PI/2;
+const SEMANA=6.048e8, DIA=8.64e7, HORA=3.6e6, MINUTO=6e4, SEGUNDO=1e3;
+function duracao(ms){
+  if(ms>=2*SEMANA) return [Math.round(ms/SEMANA),'semanas'];
+  if(ms>=2*DIA) return [Math.round(ms/DIA),'dias'];
+  if(ms>=2*HORA) return [Math.round(ms/HORA),'horas'];
+  if(ms>=2*MINUTO) return [Math.round(ms/MINUTO),'minutos'];
+  if(ms>=SEGUNDO){const n=Math.round(ms/SEGUNDO);return [n,n>1?'segundos':'segundo'];}
+  return [Math.round(ms),'milissegundos'];
+}
+function orbita(dt){
+  const r=orb.getBoundingClientRect(); if(foraDaTela(r)) return;
+  const e=suave(reduz?1:clamp((innerHeight*.9-r.top)/(innerHeight*.55+r.height/2)));
+  const ms=Math.pow(10,lerp(Math.log10(3*SEMANA),Math.log10(40),e));
+  const w=6.283/(9000*Math.pow(10,-2.4*e));        // velocidade na tela, rad/ms
+  const passo=reduz?0:w*dt, antes=cabeca;
+  cabeca-=passo;                                       // anti-horário
+  for(let i=0;i<ETAPAS;i++){
+    const ang=-Math.PI/2+i*6.283/ETAPAS, falta=((antes-ang)%6.283+6.283)%6.283;
+    if(reduz||passo>=6.283||falta<=passo) luz[i]=1; else luz[i]*=Math.exp(-dt/700);
+  }
+  const c=OW/2, R=OW*.36, ws=w*1000, L=Math.min(6.283,.5+ws*.12), cheio=clamp((ws-15)/30);
+  oc.clearRect(0,0,OW,OW);
+  oc.lineWidth=1; oc.strokeStyle='rgba(255,255,255,.1)'; oc.beginPath(); oc.arc(c,c,R,0,6.283); oc.stroke();
+  if(cheio>0){oc.lineWidth=9; oc.strokeStyle=`rgba(42,169,224,${(.12*cheio).toFixed(3)})`; oc.beginPath(); oc.arc(c,c,R,0,6.283); oc.stroke();}
+  oc.lineWidth=2.2; oc.lineCap='round';
+  for(let k=0,seg=48;k<seg;k++){                       // o rastro fica atrás da cabeça
+    const a=lerp(1-k/seg,1,cheio)*.9;
+    oc.strokeStyle=`rgba(42,169,224,${a.toFixed(3)})`;
+    oc.beginPath(); oc.arc(c,c,R,cabeca+L*k/seg,cabeca+L*(k+1)/seg); oc.stroke();
+  }
+  for(let i=0;i<ETAPAS;i++){
+    const ang=-Math.PI/2+i*6.283/ETAPAS, x=c+R*Math.cos(ang), y=c+R*Math.sin(ang), l=luz[i];
+    oc.beginPath(); oc.arc(x,y,5.5,0,6.283); oc.fillStyle='#03030A'; oc.fill();
+    oc.lineWidth=1.2; oc.strokeStyle=`rgba(255,255,255,${(.3+.7*l).toFixed(2)})`; oc.stroke();
+    if(l>.02){oc.beginPath(); oc.arc(x,y,3.2,0,6.283); oc.fillStyle=`rgba(247,161,17,${l.toFixed(2)})`; oc.fill();}
+  }
+  const ha=1-clamp((ws-20)/40);
+  if(ha>0){
+    const hx=c+R*Math.cos(cabeca), hy=c+R*Math.sin(cabeca), g=oc.createRadialGradient(hx,hy,0,hx,hy,14);
+    g.addColorStop(0,`rgba(255,255,255,${ha})`); g.addColorStop(.3,`rgba(42,169,224,${.6*ha})`); g.addColorStop(1,'rgba(42,169,224,0)');
+    oc.fillStyle=g; oc.beginPath(); oc.arc(hx,hy,14,0,6.283); oc.fill();
+  }
+  const [n,u]=duracao(ms);
+  oc.textAlign='center'; oc.textBaseline='alphabetic';
+  if('fontStretch' in oc) oc.fontStretch='condensed';
+  oc.fillStyle='#EEEDF2'; oc.font=`600 ${Math.round(OW*.17)}px Archivo, system-ui, sans-serif`; oc.fillText(String(n),c,c+OW*.04);
+  if('fontStretch' in oc) oc.fontStretch='normal';
+  oc.fillStyle='#8A89A0'; oc.font=`500 ${Math.round(OW*.034)}px "Geist Mono", ui-monospace, monospace`; oc.fillText(u.toUpperCase(),c,c+OW*.11);
+}
+
+/* 03 · escala: um ponto se liga aos vizinhos, a rede cresce, a câmera se afasta, inclina,
+   e a rede se revela parte de uma galáxia, que ela vai tomando até o fim. Galáxia em WebGL; rede em canvas 2D por cima. */
+const esc=document.getElementById('c3'), palco=esc.querySelector('.palco');
+const glc=document.getElementById('galaxia'), rede=document.getElementById('rede'), rc=rede.getContext('2d');
+const gl=glc.getContext('webgl',{premultipliedAlpha:true,alpha:true,antialias:false});
+let GW=0, GH=0, gdpr=1, ancora={x:0,y:0}, mEsc=300, giroGal=0;
+
+const GAL=(()=>{
+  const rnd=aleatorio(20260928), gauss=()=>{let u=0;for(let i=0;i<6;i++)u+=rnd();return (u-3)*1.4142;};
+  const movel=innerWidth<700, NE=movel?16000:32000, NN=movel?900:2200;
+  const passo=Math.tan(21*Math.PI/180), r0=.1;
+  const braco=(r,k)=>k+Math.log(Math.max(r,r0)/r0)/passo;          // ângulo do braço k no raio r
+  const cor=[[1,.86,.66],[.8,.82,.9],[.66,.8,1],[.3,.7,.94],[.86,.4,.76]];
+  const nos=Array.from({length:90},()=>{const r=.2+rnd()*.78,a=braco(r,rnd()<.5?0:Math.PI)+gauss()*.1;return [r*Math.cos(a),r*Math.sin(a)];});
+  const v=[];
+  const disco=()=>.05-Math.log(1-rnd()*(1-Math.exp(-1/.3)))*.3;  // exponencial truncada
+  for(let i=0;i<NE;i++){
+    const u=rnd(); let x,y,c,b,t=.9+rnd()*1.3;
+    if(u<.1){const r=Math.abs(gauss())*.08+Math.abs(gauss())*.025,a=rnd()*6.283;x=r*Math.cos(a);y=r*Math.sin(a)*.88;c=0;b=.14+.26*rnd();t=1.1+rnd()*1.3;}
+    else if(u<.16){const n=nos[(rnd()*nos.length)|0];x=n[0]+gauss()*.011;y=n[1]+gauss()*.011;c=rnd()<.55?4:3;b=.45+.5*rnd();t=1.2+rnd()*1.6;}
+    else{
+      const r=disco(); let a;
+      if(rnd()<.78){const k=rnd()<.85?(rnd()<.5?0:Math.PI):(rnd()<.5?Math.PI/2:Math.PI*1.5);a=braco(r,k)+gauss()*(.2+.12*r);c=rnd()<.5?2:rnd()<.35?3:1;b=(.3+.55*rnd()*rnd())*(.4+.6*Math.min(1,r/.4));}
+      else{a=rnd()*6.283;c=r<.3?0:1;b=.1+.28*rnd();}
+      const rr=r*(1+gauss()*.05); x=rr*Math.cos(a); y=rr*Math.sin(a);
+      if(rnd()<.012){t=2.6+rnd()*1.8;b=.95;}
+    }
+    v.push(x,y,...cor[c],b,t,0,0);
+  }
+  for(let i=0;i<NN;i++){                                              // névoa: manchas grandes e fracas
+    const u=rnd(); let x,y,c,t,b;
+    if(u<.12){const r=Math.abs(gauss())*.07,a=rnd()*6.283;x=r*Math.cos(a);y=r*Math.sin(a)*.88;c=[1,.78,.5];t=.1+rnd()*.1;b=.026;}
+    else{const r=disco(),k=rnd()<.5?0:Math.PI,a=braco(r,k)+gauss()*(.16+.1*r);x=r*Math.cos(a);y=r*Math.sin(a);c=rnd()<.8?[.34,.52,1]:[.8,.3,.72];t=.05+rnd()*.08;b=.045+.03*rnd();}
+    v.push(x,y,...c,b,t,1,0);
+  }
+  const rO=.56, aO=braco(rO,0), O=[rO*Math.cos(aO),rO*Math.sin(aO)];
+  const N=v.length/9; let max=0;
+  for(let i=0;i<N;i++){const d=Math.hypot(v[i*9]-O[0],v[i*9+1]-O[1]);v[i*9+8]=d;if(d>max)max=d;}
+  return {v:new Float32Array(v),N,NE,O,max};
+})();
+
+// a rede: nós em volta da origem, em todas as escalas; cada um se liga aos dois vizinhos mais próximos que já existiam
+const REDE=(()=>{
+  const rnd=aleatorio(5), O=GAL.O, n=[{x:O[0],y:O[1],d:0,origem:true}];
+  for(let i=0;i<420;i++){const r=.0012*Math.pow(.26/.0012,rnd()),a=rnd()*6.283;n.push({x:O[0]+Math.cos(a)*r,y:O[1]+Math.sin(a)*r,d:r,azul:rnd()<.22});}
+  n.sort((a,b)=>a.d-b.d);
+  n.forEach((p,k)=>{if(!k)return;const m=[];for(let j=0;j<k;j++)m.push([Math.hypot(p.x-n[j].x,p.y-n[j].y),j]);m.sort((a,b)=>a[0]-b[0]);p.lig=m.slice(0,2).map(q=>q[1]);});
+  return n;
+})();
+
+let U={};
+if(gl){
+  const sombreador=(tipo,src)=>{const s=gl.createShader(tipo);gl.shaderSource(s,src);gl.compileShader(s);return s;};
+  const prog=gl.createProgram();
+  gl.attachShader(prog,sombreador(gl.VERTEX_SHADER,`
+attribute vec2 aP;attribute vec3 aC;attribute float aB,aT,aK,aD;
+uniform vec2 uM0,uM1,uT,uTela;uniform float uR,uVis,uDpr,uEsc,uNev;
+varying vec3 vC;varying float vA;
+void main(){
+  vec2 p=aP.x*uM0+aP.y*uM1+uT;
+  gl_Position=vec4(p.x/uTela.x*2.-1.,1.-p.y/uTela.y*2.,0.,1.);
+  float aceso=1.-smoothstep(uR*.82,uR,aD);
+  vC=mix(vec3(.55,.58,.68),aC,aceso);
+  float a=aB*mix(.14*uVis,1.,aceso);
+  if(aK>.5){a*=uNev;gl_PointSize=min(aT*uEsc,160.)*uDpr;}else{gl_PointSize=aT*uDpr;}
+  vA=a;
+}`));
+  gl.attachShader(prog,sombreador(gl.FRAGMENT_SHADER,`
+precision mediump float;varying vec3 vC;varying float vA;
+void main(){vec2 d=gl_PointCoord-.5;float q=dot(d,d)*4.;if(q>1.)discard;float f=exp(-q*3.5)*vA;gl_FragColor=vec4(vC*f,f);}`));
+  gl.linkProgram(prog); gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER,GAL.v,gl.STATIC_DRAW);
+  [['aP',2,0],['aC',3,2],['aB',1,5],['aT',1,6],['aK',1,7],['aD',1,8]].forEach(([n,t,o])=>{const l=gl.getAttribLocation(prog,n);gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,t,gl.FLOAT,false,36,o*4);});
+  ['uM0','uM1','uT','uTela','uR','uVis','uDpr','uEsc','uNev'].forEach(n=>U[n]=gl.getUniformLocation(prog,n));
+  gl.enable(gl.BLEND); gl.blendFunc(gl.ONE,gl.ONE); gl.clearColor(0,0,0,0);
+}
+
+function medirGalaxia(){
+  gdpr=Math.min(devicePixelRatio||1,2); GW=palco.clientWidth; GH=palco.clientHeight;
+  for(const c of [glc,rede]){c.width=Math.round(GW*gdpr);c.height=Math.round(GH*gdpr);}
+  rc.setTransform(gdpr,0,0,gdpr,0,0);
+  if(gl) gl.viewport(0,0,glc.width,glc.height);
+  const pr=palco.getBoundingClientRect(), env=palco.querySelector('.env').getBoundingClientRect(), txt=palco.querySelector('.texto').getBoundingClientRect();
+  if(innerWidth>=900){ancora={x:env.left-pr.left+env.width*.75,y:GH*.5}; mEsc=Math.min(env.width*.62,GH*.95);}
+  else{const y0=txt.bottom-pr.top+12; ancora={x:GW/2,y:y0+(GH-y0)/2}; mEsc=Math.min(GW*.96,(GH-y0)*.95);}
+}
+medirGalaxia(); addEventListener('resize',medirGalaxia);
+
+function galaxia(dt){
+  const r=esc.getBoundingClientRect(); if(foraDaTela(r)) return;
+  const p=reduz?1:clamp((innerHeight*.6-r.top)/(innerHeight*.6+(r.height-innerHeight)*.75));
+  const f1=clamp(p/.5), f2=suave(clamp((p-.5)/.28)), f3=suave(clamp((p-.78)/.22));
+  const R0=.0009, R1=.12, R2=.3, Rmax=GAL.max*1.02;
+  const R=p<.5?R0*Math.pow(R1/R0,f1):p<.78?R1*Math.pow(R2/R1,f2):R2*Math.pow(Rmax/R2,f3);
+  const s1=.36*mEsc/R1, s=p<.5?.36*mEsc/R:s1*Math.pow(.47*mEsc/s1,f2);
+  const incl=lerp(1,.58,f2), beta=lerp(0,-.42,f2);
+  if(!reduz) giroGal+=dt*.00004*suave(clamp((p-.6)/.4));
+  const ca=Math.cos(-giroGal), sa=Math.sin(-giroGal), cb=Math.cos(beta), sb=Math.sin(beta);
+  const m00=s*(cb*ca-sb*incl*sa), m10=s*(sb*ca+cb*incl*sa), m01=s*(-cb*sa-sb*incl*ca), m11=s*(-sb*sa+cb*incl*ca);
+  const wx=GAL.O[0]*(1-f2), wy=GAL.O[1]*(1-f2), tx=ancora.x-(m00*wx+m01*wy), ty=ancora.y-(m10*wx+m11*wy);
+  const tela=(q)=>[m00*q.x+m01*q.y+tx, m10*q.x+m11*q.y+ty];
+  const nev=clamp((p-.45)/.4);
+  if(gl){
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform2f(U.uM0,m00,m10); gl.uniform2f(U.uM1,m01,m11); gl.uniform2f(U.uT,tx,ty); gl.uniform2f(U.uTela,GW,GH);
+    gl.uniform1f(U.uR,R); gl.uniform1f(U.uVis,suave(clamp((p-.42)/.3))); gl.uniform1f(U.uDpr,gdpr); gl.uniform1f(U.uEsc,s); gl.uniform1f(U.uNev,nev);
+    gl.drawArrays(gl.POINTS,0,GAL.NE);
+    if(nev>.01) gl.drawArrays(gl.POINTS,GAL.NE,GAL.N-GAL.NE);
+  }
+  rc.clearRect(0,0,GW,GH);
+  const aRede=1-suave(clamp((p-.42)/.3)), aLig=1-suave(clamp((p-.3)/.3)), tam=lerp(3.2,1.3,clamp(p/.6));
+  if(aLig>0){
+    rc.lineWidth=1; rc.strokeStyle=`rgba(42,169,224,${(.55*aLig).toFixed(3)})`; rc.beginPath();
+    for(let i=1;i<REDE.length;i++){const q=REDE[i]; if(q.d>R) break; const [x,y]=tela(q);
+      for(const j of q.lig){const [x2,y2]=tela(REDE[j]); rc.moveTo(x,y); rc.lineTo(x2,y2);}}
+    rc.stroke();
+  }
+  for(const q of REDE){
+    if(q.d>R) break;
+    const a=q.origem?Math.max(aRede,.9):aRede; if(a<=0) continue;
+    const [x,y]=tela(q); if(x<-10||y<-10||x>GW+10||y>GH+10) continue;
+    rc.globalAlpha=a*(.3+.7*clamp((R-q.d)/(R*.2+1e-9)));
+    if(q.origem){
+      const pulso=reduz?0:(performance.now()/1600)%1;
+      rc.strokeStyle=`rgba(247,161,17,${(.6*(1-pulso)).toFixed(3)})`; rc.lineWidth=1.2;
+      rc.beginPath(); rc.arc(x,y,5+pulso*16*(1-p),0,6.283); rc.stroke();
+      rc.fillStyle='#F7A111'; rc.beginPath(); rc.arc(x,y,lerp(5,2.6,f2),0,6.283); rc.fill();
+    }else{rc.fillStyle=q.azul?'#2AA9E0':'#EEEDF2'; rc.beginPath(); rc.arc(x,y,tam,0,6.283); rc.fill();}
+  }
+  rc.globalAlpha=1;
+}
+
+/* Um laço só para tudo que se move */
 let angulo=0, ultimo=performance.now(), rolagemAnterior=scrollY;
 function laco(t){
-  const dt=t-ultimo; ultimo=t;
+  const dt=Math.min(t-ultimo,100); ultimo=t;
+  const rolou=Math.abs(scrollY-rolagemAnterior); rolagemAnterior=scrollY;
   if(!reduz){
-    angulo-=dt*0.006;                         // ~60s por volta
-    angulo-=Math.abs(scrollY-rolagemAnterior)*0.08;   // rolar (para qualquer lado) acelera o giro anti-horário
-    rolagemAnterior=scrollY;
+    angulo-=dt*.006+rolou*.08;                       // vórtice: ~60s por volta; rolar (para qualquer lado) acelera
     vortice.style.transform=`rotate(${angulo}deg)`;
+    giroCeu+=dt*.00004+rolou*.00025;                 // céu: bem mais devagar, no mesmo sentido
   }
-  desenhar(t);
-  textoAcende();
-  galaxia();
+  topo.classList.toggle('mostra',scrollY>innerHeight*.55);
+  desenharCeu(t); acender(); orbita(dt); galaxia(dt);
   requestAnimationFrame(laco);
 }
 requestAnimationFrame(laco);
-
-/* 01 · texto acende conforme a leitura */
-const acende=document.getElementById('acende');
-acende.innerHTML=acende.textContent.split(' ').map(w=>`<span class="p">${w}</span>`).join(' ');
-const palavras=[...acende.querySelectorAll('.p')];
-function textoAcende(){
-  if(reduz) return;
-  const r=acende.getBoundingClientRect();
-  const p=clamp((innerHeight*.85-r.top)/(r.height+innerHeight*.35));
-  const n=Math.round(p*palavras.length);
-  palavras.forEach((w,i)=>w.classList.toggle('on',i<n));
-}
-
-/* 03 · escala: um ponto se liga aos vizinhos, a rede cresce, a câmera se afasta e a rede vira galáxia */
-const esc=document.getElementById('c3'), gal=document.getElementById('galaxia'), gx=gal.getContext('2d');
-let GW=0, GH=0;
-function medirGal(){const d=Math.min(devicePixelRatio||1,2);GW=gal.clientWidth;GH=gal.clientHeight;gal.width=GW*d;gal.height=GH*d;gx.setTransform(d,0,0,d,0,0);}
-medirGal(); addEventListener('resize',medirGal);
-const pts=(()=>{
-  let s=11; const rnd=()=>{s=(s*16807)%2147483647;return s/2147483647;};
-  const gauss=()=>{let u=0;for(let i=0;i<4;i++)u+=rnd();return (u-2)/1.15;};
-  const g=[];
-  // galáxia: dois braços em espiral e um núcleo
-  for(let i=0;i<6500;i++){
-    let x,y;
-    if(rnd()<.2){const r=Math.abs(gauss())*.17, a=rnd()*6.283; x=Math.cos(a)*r; y=Math.sin(a)*r;}
-    else{const t=Math.pow(rnd(),.8), braco=rnd()<.5?0:Math.PI, a=braco+t*4.4+gauss()*.42*(1.1-t*.5), r=.08+t*.95+gauss()*.05;
-      x=Math.cos(a)*r+gauss()*.06; y=Math.sin(a)*r+gauss()*.06;}
-    g.push({x,y:y*.68,rede:false});
-  }
-  // ponto de partida num dos braços, e a rede em volta dele, densa em todas as escalas
-  const t0=.5, a0=t0*4.4, r0=.08+t0*.95, O={x:Math.cos(a0)*r0,y:Math.sin(a0)*r0*.68};
-  for(let i=0;i<420;i++){const r=.0012*Math.pow(160,rnd()), a=rnd()*6.283; g.push({x:O.x+Math.cos(a)*r,y:O.y+Math.sin(a)*r*.8,rede:true});}
-  g.push({x:O.x,y:O.y,rede:true,origem:true});
-  for(const p of g){p.d=Math.hypot(p.x-O.x,p.y-O.y); p.cor=p.origem?'247,161,17':rnd()<.12?'42,169,224':rnd()<.05?'154,43,121':'255,255,255'; p.r=p.rede?1.6:.4+rnd()*.8;}
-  g.sort((a,b)=>a.d-b.d);
-  // cada nó da rede se liga aos dois vizinhos mais próximos que já existiam
-  const rede=g.filter(p=>p.rede);
-  rede.forEach((p,k)=>{let m=[];for(let j=0;j<k;j++){const q=rede[j],d=Math.hypot(p.x-q.x,p.y-q.y);m.push([d,q]);}m.sort((a,b)=>a[0]-b[0]);p.lig=m.slice(0,2).map(v=>v[1]);});
-  g.O=O; g.max=g[g.length-1].d; return g;
-})();
-const suave=t=>t*t*(3-2*t);
-function galaxia(){
-  const r=esc.getBoundingClientRect();
-  if(r.bottom<0||r.top>innerHeight) return;
-  const p=reduz?1:clamp(-r.top/(r.height-innerHeight));
-  const m=Math.min(GW,GH), R0=.0009, R=R0*Math.pow(pts.max/R0,p);      // raio da rede cresce exponencialmente
-  const esc1=Math.max(.38*m/R,.44*m);                                  // a câmera se afasta até caber a galáxia
-  const k=suave(clamp((p-.55)/.45));
-  const cx0=pts.O.x*(1-k), cy0=pts.O.y*(1-k);                          // e desliza da origem para o centro
-  const ox=GW/2, oy=GH*.58;
-  gx.clearRect(0,0,GW,GH);
-  const brilho=clamp((p-.7)/.3);
-  if(brilho>0){const cx=ox-cx0*esc1, cy=oy-cy0*esc1, rg=gx.createRadialGradient(cx,cy,0,cx,cy,.55*esc1);
-    rg.addColorStop(0,`rgba(180,190,255,${(.22*brilho).toFixed(3)})`);rg.addColorStop(.35,`rgba(26,26,85,${(.35*brilho).toFixed(3)})`);rg.addColorStop(1,'rgba(26,26,85,0)');
-    gx.fillStyle=rg;gx.fillRect(0,0,GW,GH);}
-  const ligAlfa=clamp(1-(p-.45)/.4)*.55;
-  if(ligAlfa>0){
-    gx.lineWidth=1; gx.strokeStyle=`rgba(42,169,224,${ligAlfa.toFixed(3)})`; gx.beginPath();
-    for(const q of pts){ if(q.d>R) break; if(!q.lig) continue;
-      const x=ox+(q.x-cx0)*esc1, y=oy+(q.y-cy0)*esc1;
-      for(const v of q.lig){gx.moveTo(x,y);gx.lineTo(ox+(v.x-cx0)*esc1,oy+(v.y-cy0)*esc1);} }
-    gx.stroke();
-  }
-  const tamRede=1+2.2*clamp(1-p/.5);
-  for(const q of pts){
-    if(q.d>R) break;
-    const x=ox+(q.x-cx0)*esc1, y=oy+(q.y-cy0)*esc1;
-    if(x<-4||y<-4||x>GW+4||y>GH+4) continue;
-    const a=clamp((R-q.d)/(R*.25+1e-6));
-    gx.fillStyle=`rgba(${q.cor},${((.25+.75*a)*(q.rede?1:.8)).toFixed(2)})`;
-    gx.beginPath(); gx.arc(x,y,q.origem?3.5:q.rede?q.r*tamRede*.7:q.r,0,6.283); gx.fill();
-  }
-}
-
-/* Formulário: nesta direção é só demonstração */
-document.getElementById('form').addEventListener('submit',e=>{
-  e.preventDefault();
-  document.getElementById('aviso').textContent='O formulário ainda não está ligado. Em breve.';
-});
 </script>
 </body>
 </html>
