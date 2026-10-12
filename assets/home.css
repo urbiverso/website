@@ -26,8 +26,8 @@ main,header,footer{position:relative;z-index:1}
 .topo .marca .simbolo{width:28px;height:28px;display:block}
 .topo .marca .palavra{height:15px;width:auto;display:block}
 .topo nav{display:flex;gap:18px;align-items:center}
-/* Em tela estreita os links não cabem ao lado da marca: "Trabalhe conosco" fica só no rodapé */
-@media (max-width:479px){.topo nav a[href$="trabalhe-conosco/"]{display:none}}
+/* Em tela estreita os links não cabem ao lado da marca: "Trabalhe conosco" (ou "Careers") fica só no rodapé */
+@media (max-width:479px){.topo nav a[href$="trabalhe-conosco/"],.topo nav a[href$="careers/"]{display:none}}
 
 /* Entrada: só a marca */
 .intro{--s:min(36vh,46vw,340px);position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:calc(var(--s)*.232);padding:80px 20px 110px}

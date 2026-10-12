@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<!-- O formulário envia para a URL de entrada de uma campanha do app de leads no hub. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get in touch · Urbiverso</title>
+<meta name="description" content="We help entrepreneurs and companies build solutions for the age of the singularity.">
+<link rel="alternate" hreflang="pt-BR" href="https://urbiverso.com.br/conhecer/">
+<link rel="alternate" hreflang="en" href="https://urbiverso.com.br/en/get-in-touch/">
+<link rel="alternate" hreflang="x-default" href="https://urbiverso.com.br/conhecer/">
+<link rel="icon" href="../../assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../assets/conhecer.css">
+</head>
+<body>
+<header class="topo"><div class="env">
+  <a class="marca" href="../" aria-label="Urbiverso, home page"><img class="simbolo" src="../../assets/simbolo.webp" alt=""><img class="palavra" src="../../assets/palavra.svg" alt=""></a>
+  <a class="idioma mono" href="../../conhecer/" lang="pt-BR" hreflang="pt-BR" aria-label="Versão em português">PT</a>
+</div></header>
+
+<main><div class="env">
+  <header class="manchete">
+    <h1>Stop getting excited about the future and start building it.</h1>
+  </header>
+  <p class="chamada" id="chamada">We’re opening Urbiverso’s infrastructure to a select group of partners before making it available to the public. Fill in the form and we’ll get in touch to assess, together with you, whether we’re the right solution to grow your business.</p>
+
+  <form id="form" novalidate>
+    <fieldset>
+      <legend>Which of these describes you best?</legend>
+      <div class="perfis">
+        <label class="escolha"><input type="radio" name="perfil" value="empreendedor" required>
+          <span class="cartao"><b>I’m an entrepreneur</b><small>I plan to start a business, or I’m already building one.</small></span></label>
+        <label class="escolha"><input type="radio" name="perfil" value="empresa">
+          <span class="cartao"><b>I work at a company</b><small>I want to help move our processes into the AI era.</small></span></label>
+      </div>
+    </fieldset>
+
+    <div class="campos">
+      <label class="campo" for="f-nome"><span>Name</span><input type="text" id="f-nome" name="nome" autocomplete="name" maxlength="200" required></label>
+      <label class="campo" for="f-email"><span>Email</span><input type="email" id="f-email" name="email" autocomplete="email" maxlength="254" required></label>
+      <label class="campo" for="f-empresa"><span>Company or organization<span class="opcional">Optional</span></span><input type="text" id="f-empresa" name="empresa" autocomplete="organization" maxlength="200"></label>
+      <label class="campo" for="f-telefone"><span>Phone<span class="opcional">Optional</span></span><input type="tel" id="f-telefone" name="telefone" autocomplete="tel" inputmode="tel" maxlength="40"></label>
+    </div>
+
+    <fieldset>
+      <legend>How big is your organization?</legend>
+      <div class="fichas">
+        <label class="escolha"><input type="radio" name="tamanho" value="1"><span class="ficha">Just me</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-5"><span class="ficha">Up to 5 people</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-20"><span class="ficha">Up to 20</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-60"><span class="ficha">Up to 60</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="ate-100"><span class="ficha">Up to 100</span></label>
+        <label class="escolha"><input type="radio" name="tamanho" value="mais-100"><span class="ficha">More than 100</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Do you already have an idea you’d like to turn into a solution?</legend>
+      <div class="lista">
+        <label class="escolha"><input type="radio" name="ideia" value="tem-ideia"><span class="cartao"><span>I have an idea (or several) I want to bring to market</span></span></label>
+        <label class="escolha"><input type="radio" name="ideia" value="conhecer"><span class="cartao"><span>I just want to learn more</span></span></label>
+      </div>
+      <div class="detalhe" id="so-com-ideia" hidden>
+        <p class="preambulo">If you tell us, roughly, what you have in mind, it can help us know whether Urbiverso is the right solution for you. But feel free not to share anything yet if you’d rather not.</p>
+        <label class="campo" for="f-construir"><span class="pergunta">What do you want to build?</span><textarea id="f-construir" name="construir" maxlength="5000"></textarea></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>How would you rate your knowledge of the artificial intelligence tools available today?</legend>
+      <div class="nivel" id="nivel">
+        <input type="range" id="f-nivel" name="nivel" min="1" max="3" step="1" value="2" aria-describedby="descricao-nivel">
+        <div class="marcas"><button type="button" tabindex="-1" data-v="1">Beginner</button><button type="button" tabindex="-1" data-v="2">Explorer</button><button type="button" tabindex="-1" data-v="3">Advanced</button></div>
+        <p class="descricao" id="descricao-nivel" aria-live="polite">Drag or tap a level.</p>
+      </div>
+    </fieldset>
+
+    <label class="campo" for="f-uso-ia" id="so-empresa" hidden><span class="pergunta">Describe how people use artificial intelligence in your workplace.<span class="opcional">Optional</span></span>
+      <textarea id="f-uso-ia" name="uso_ia" maxlength="5000"></textarea></label>
+
+    <label class="campo" for="f-origem"><span class="pergunta">How did you hear about Urbiverso?<span class="opcional">Optional</span></span>
+      <input type="text" id="f-origem" name="origem" maxlength="500" placeholder="A referral, LinkedIn, an event…"></label>
+
+    <div class="envio">
+      <button type="submit">Get in touch</button>
+      <p class="nota">We use this data only to contact you about Urbiverso.</p>
+      <div class="aviso" id="aviso" role="status"></div>
+    </div>
+  </form>
+
+  <div class="sucesso" id="sucesso" hidden>
+    <h2 tabindex="-1">We’ve received your sign-up.</h2>
+    <p>We sent an email to <b id="sucesso-email"></b> with a link to confirm the address. The email is in Portuguese. If it doesn’t arrive within a few minutes, check your spam folder.</p>
+  </div>
+</div></main>
+
+<footer><div class="env mono"><span>© 2026 Urbiverso Ltda</span><span class="links"><a href="../careers/">Careers</a><span>urbiverso.com.br</span></span></div></footer>
+
+<script src="../../assets/conhecer.js"></script>
+</body>
+</html>
