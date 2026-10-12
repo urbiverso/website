@@ -1,0 +1,100 @@
+:root{
+  color-scheme: dark;
+  --espaco:#03030A; --nebulosa:#1A1A55; --texto:#EEEDF2; --apagado:#8A89A0; --linha:rgba(255,255,255,.09);
+  --azul:#2AA9E0; --verde:#13A98D; --laranja:#F7A111; --magenta:#9A2B79;
+  --sans:"Archivo",system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--espaco)}
+body{margin:0;background:var(--espaco);color:var(--texto);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--laranja);outline-offset:3px}
+#ceu{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.nebulosa{position:fixed;inset:-35%;z-index:0;pointer-events:none;
+  background:radial-gradient(35% 26% at 65% 32%,rgba(26,26,85,.55),transparent 70%),radial-gradient(29% 24% at 29% 70%,rgba(154,43,121,.13),transparent 70%),radial-gradient(22% 18% at 55% 56%,rgba(42,169,224,.05),transparent 70%);
+  animation:gira-nebulosa 240s linear infinite}
+@keyframes gira-nebulosa{to{transform:rotate(-360deg)}}
+main,header,footer{position:relative;z-index:1}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--apagado)}
+.env{max-width:1120px;margin:0 auto;padding-inline:20px}
+
+.topo{position:fixed;inset:0 0 auto 0;z-index:5;padding-top:env(safe-area-inset-top,0px);
+  background:linear-gradient(var(--espaco) 20%,transparent)}
+.topo .env{display:flex;justify-content:space-between;align-items:center;height:60px}
+.topo .marca{display:flex;align-items:center;gap:12px;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .5s}
+.topo.mostra .marca{opacity:1;pointer-events:auto}
+.topo .marca .simbolo{width:28px;height:28px;display:block}
+.topo .marca .palavra{height:15px;width:auto;display:block}
+.topo nav{display:flex;gap:18px;align-items:center}
+/* Em tela estreita os links não cabem ao lado da marca: "Trabalhe conosco" (ou "Careers") fica só no rodapé */
+@media (max-width:479px){.topo nav a[href$="trabalhe-conosco/"],.topo nav a[href$="careers/"]{display:none}}
+
+/* Entrada: só a marca */
+.intro{--s:min(36vh,46vw,340px);position:relative;min-height:100svh;display:grid;justify-items:center;align-content:center;gap:calc(var(--s)*.232);padding:80px 20px 110px}
+.simbolo-grande{width:var(--s);aspect-ratio:1;animation:chega 1.6s cubic-bezier(.2,.7,0,1) both}
+.vortice{width:100%;height:100%;will-change:transform}
+.vortice img{width:100%;height:100%;display:block}
+.intro .palavra{display:block;height:calc(var(--s)*.36);width:auto;animation:chega 1.2s .45s cubic-bezier(.2,.7,0,1) both}
+@keyframes chega{from{opacity:0;transform:translateY(14px) scale(.96)}}
+.role{position:absolute;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));width:44px;height:44px;margin-left:-22px;display:grid;place-items:center;color:var(--apagado);animation:quica 2.4s ease-in-out infinite}
+.role:hover{color:var(--texto)}
+.role svg{width:26px;height:26px}
+@keyframes quica{50%{transform:translateY(7px)}}
+
+/* A frase principal, com tela própria */
+.abertura{min-height:92svh;display:grid;justify-items:center;align-content:center;text-align:center;gap:26px;padding:80px 20px}
+.abertura h1{margin:0;max-width:19ch;font-weight:700;font-stretch:78%;font-size:clamp(36px,5.2vw,74px);line-height:1;letter-spacing:-.01em;text-wrap:balance}
+.abertura p{margin:0;max-width:44ch;color:var(--apagado);font-size:clamp(17px,1.6vw,20px)}
+.cta{display:inline-block;font:600 15px var(--sans);color:var(--espaco);background:var(--texto);border-radius:8px;padding:13px 22px;text-decoration:none}
+.cta:hover{background:#fff}
+.js .revela{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,0,1)}
+.js .revela.on{opacity:1;transform:none}
+
+/* Blocos: texto à esquerda, visual à direita (empilham no celular) */
+.capitulo{padding-block:clamp(64px,11vh,120px);border-top:1px solid var(--linha)}
+.bloco{display:grid;gap:44px;align-items:center}
+@media (min-width:900px){.bloco{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px}}
+.rotulo{display:flex;gap:14px;align-items:center;margin-bottom:24px}
+.rotulo .n{color:var(--laranja)}
+.titulo{margin:0;max-width:22ch;font-weight:600;font-stretch:84%;font-size:clamp(28px,3.5vw,48px);line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.acende .p{opacity:.2;transition:opacity .35s linear}
+.acende .p.on{opacity:1}
+.apoio{margin:22px 0 0;max-width:44ch;color:var(--apagado);font-size:18px}
+
+/* 01 · fluxograma com o brilho percorrendo */
+.fluxo{display:block;width:100%;max-width:460px;aspect-ratio:1;justify-self:center}
+
+/* 02 · letreiro da infraestrutura */
+.letreiro{display:grid;gap:4px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+@media (max-width:899px){.letreiro{margin-inline:-20px}}
+.faixa{display:flex;width:max-content;animation:corre var(--dur,60s) linear infinite}
+.faixa.volta{animation-direction:reverse}
+.faixa span{white-space:nowrap;font-weight:600;font-stretch:80%;font-size:clamp(24px,2.6vw,36px);line-height:1.3;letter-spacing:-.01em;padding-right:.5em}
+.faixa span::after{content:"✦";color:var(--laranja);font-size:.42em;vertical-align:.4em;padding-left:.5em}
+.faixa.apagada span{color:var(--apagado)}
+@keyframes corre{to{transform:translateX(-50%)}}
+.so-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* 03 · escala: rede que vira galáxia */
+.escala{position:relative;height:280vh;border-top:1px solid var(--linha)}
+.palco{position:sticky;top:0;height:100svh;overflow:hidden}
+.palco canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.palco .env{position:relative;height:100%;display:grid;align-content:start;padding-top:96px;pointer-events:none}
+@media (min-width:900px){.palco .env{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:64px;align-content:center;padding-top:0}}
+
+/* Fecho */
+.final{padding-block:clamp(72px,13vh,140px);border-top:1px solid var(--linha);text-align:center}
+.final h2{margin:0 0 28px;font-weight:700;font-stretch:80%;font-size:clamp(32px,4.6vw,60px);line-height:1.04;letter-spacing:-.01em}
+
+footer{border-top:1px solid var(--linha);padding-block:22px calc(22px + env(safe-area-inset-bottom,0px))}
+footer .env{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer .links{display:flex;gap:24px;flex-wrap:wrap}
+
+@media (prefers-reduced-motion:reduce){
+  .nebulosa,.simbolo-grande,.intro .palavra,.role,.faixa{animation:none}
+  .acende .p{opacity:1}
+  .js .revela{opacity:1;transform:none;transition:none}
+  .escala{height:auto}
+  .palco{position:relative}
+}
